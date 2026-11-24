@@ -1,137 +1,126 @@
-# 💌 Gerador de Cartas de Amor (Escriba Inteligente)
+# 💌 Documentação do Projeto: Gerador de Cartas de Amor
 
-> Aplicação web interativa para geração, personalização e exportação em PDF de cartas de amor apaixonadas, desenvolvida com **Tailwind CSS** e **Inteligência Artificial Nativa**.
-
----
-
-## 👤 Autor
-* **Desenvolvedor:** Ryan Amorim Carvalho  
-* **Tema da Aplicação:** Gerador de Cartas de Amor  
-* **Paleta de Cores:** Cores Quentes — Vermelho Carmim (`#4c0519`, `#991b1b`), Ouro Metálico (`#f59e0b`, `#d97706`), Off-White Pergaminho (`#fcf8f2`) e Branco Puro (`#ffffff`).
+> Relatório e documentação de entrega da atividade prática de desenvolvimento Web responsivo utilizando **Tailwind CSS**, **HTML5** e **JavaScript puro**.
 
 ---
 
-## 💻 Sobre o Projeto
+## 🔗 1. Links do Projeto Desenvolvido
 
-O **Gerador de Cartas de Amor** é uma plataforma que permite a qualquer pessoa criar uma declaração de amor personalizada, poética e emocionante em poucos passos. O sistema realiza uma entrevista guiada com o declarante, abordando memórias, sentimentos de proximidade e distância, promessas de futuro e momentos marcantes. 
-
-A aplicação conecta-se de forma nativa a modelos de Inteligência Artificial para tecer as respostas da entrevista em uma carta coesa e poética. O resultado pode ser editado diretamente na folha de papel, estilizado em 4 modelos visuais e baixado em formato PDF.
-
----
-
-## ✨ Principais Funcionalidades
-
-1. **Entrevista Guiada com o Declarante:**
-   - Perguntas sobre a pessoa amada, tom da mensagem, como se conheceram, pensamentos, memórias felizes e promessas.
-2. **Geração Automática por IA (Gemini API):**
-   - Criação instantânea do texto da carta a partir do preenchimento da entrevista.
-   - **Refinamento em 1 clique:** Botões para ajustar o estilo da carta (*✨ Mais Poética*, *🔥 Mais Intensa*, *📜 Mais Curta* e *🖋️ Polir Gramática*).
-3. **4 Modelos Visuais de Carta:**
-   - **Clássico Real:** Estilo pergaminho histórico, borda dupla em ouro, selo de cera vermelho e letra capitular.
-   - **Paixão Carmim:** Estilo contemporâneo com cabeçalho vinho profundo e ornamentos dourados.
-   - **Minimalista Dourado:** Visual limpo em fundo neutro com detalhes estelares delicados.
-   - **Poético & Floral:** Estilo delicado em rosa suave com tipografia itálica e ornamentação floral.
-4. **Edição Direta no Papel:**
-   - O corpo da carta possui o atributo `contenteditable="true"`, permitindo alterações manuais em tempo real.
-5. **Exportação Profissional:**
-   - Download da carta em PDF mantendo alta fidelidade visual via biblioteca `html2pdf.js`.
-   - Cópia do texto formatado com um único clique.
-6. **Interface Totalmente Responsiva:**
-   - Adaptação perfeita para dispositivos móveis, tablets e desktops.
+* **Repositório no GitHub:** `https://github.com/seu-usuario/gerador-cartas-de-amor` *(substitua pelo link do seu repositório)*
+* **Aplicação em Funcionamento (Vercel):** `https://seu-projeto.vercel.app` *(substitua pelo link do deploy na Vercel)*
 
 ---
 
-## 📸 Demonstração do Projeto (Screenshots)
+## 👤 2. Identificação do Autor e Tema
 
-*Inclua aqui os prints solicitados pela atividade na versão final do seu repositório:*
+* **Aluno / Desenvolvedor:** Ryan Amorim Carvalho
+* **Tema da Aplicação:** Site para geração de cartas de amor com entrevista guiada e motor inteligente de composição textual.
+* **Paleta de Cores Utilizada:** Cores quentes românticas — Vermelho Carmim (`#4c0519`, `#991b1b`), Ouro Metálico (`#f59e0b`, `#d97706`), Off-White / Pergaminho (`#fcf8f2`) e Branco Puro (`#ffffff`).
 
-| Código da Aplicação | Interface em Funcionamento |
+---
+
+## 🚀 3. Funcionalidades Implementadas
+
+1. **Motor Inteligente Local em JavaScript (100% Client-Side):** Processa todas as respostas da entrevista diretamente no navegador sem depender de APIs externas ou chaves de servidor, garantindo funcionamento imediato e estável em hospedagens estáticas como a **Vercel**.
+2. **Entrevista Guiada com Placeholders Dinâmicos:** Campos de entrada intuitivos com textos de exemplo (`placeholder`) que desaparecem automaticamente ao digitar, coletando sentimentos de proximidade, distância, frequência de pensamentos, memórias marcantes e promessas.
+3. **Refinamento Rápido em 1 Clique:** Ferramenta sobre o papel que adapta instantaneamente a carta para 4 variações (*✨ Mais Poética*, *🔥 Mais Intensa*, *📜 Mais Curta* e *🖋️ Polir Gramática*).
+4. **4 Modelos Visuais de Papel:** *Clássico Real* (pergaminho com selo de cera), *Paixão Carmim* (vinho e dourado), *Minimalista* e *Poético & Floral*.
+5. **Edição Direta no Papel e Exportação em PDF:** Área editável (`contenteditable="true"`) com download em PDF de alta qualidade via `html2pdf.js`.
+
+---
+
+## 📸 4. Registros Visuais (Prints do Código e da Aplicação)
+
+> *Dica: Adicione suas imagens na pasta `./assets/` do repositório e mantenha os caminhos abaixo.*
+
+### 📷 4.1 Prints da Aplicação em Funcionamento
+
+| Visualização Geral da Interface | Entrevista Guiada com Placeholders |
 | :---: | :---: |
-| ![Print do Código](./prints/codigo.png) | ![Print da Aplicação](./prints/aplicacao.png) |
+| ![Print Tela Inicial](./assets/print-tela-inicial.png) | ![Print Formulario](./assets/print-formulario.png) |
 
-| Modelo Clássico (PDF) | Entrevista Guiada |
+| Carta Gerada e Refinada no Papel | Download em PDF Formatado |
 | :---: | :---: |
-| ![Print do PDF](./prints/pdf.png) | ![Print da Entrevista](./prints/entrevista.png) |
+| ![Print Carta Gerada](./assets/print-carta-gerada.png) | ![Print PDF](./assets/print-pdf.png) |
+
+### 📷 4.2 Prints do Código Fonte
+
+| Estrutura HTML e Estilização Tailwind CSS | Motor Inteligente Local em JavaScript |
+| :---: | :---: |
+| ![Print Codigo HTML](./assets/print-codigo-html.png) | ![Print Codigo JS](./assets/print-codigo-js.png) |
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## 🎨 5. Lista das Classes Tailwind CSS Utilizadas e Suas Funções
 
-* **HTML5:** Estruturação semântica da página.
-* **Tailwind CSS:** Estilização utilitária responsiva e estilização temática avançada.
-* **JavaScript (ES6+):** Manipulação de DOM, integração com API de IA e controle dos modelos.
-* **Google Fonts:** Fontes *Cormorant Garamond*, *Playfair Display*, *Plus Jakarta Sans* e *Dancing Script*.
-* **Font Awesome:** Ícones vetoriais.
-* **html2pdf.js:** Geração e renderização de arquivos PDF no navegador.
+Abaixo estão listadas **mais de 40 classes do Tailwind CSS** empregadas na construção do projeto, organizadas por categoria:
 
----
+### 🎨 Cores e Planos de Fundo (Cores Quentes)
+1. `bg-rose-950` — Define o fundo vinho/carmim escuro no cabeçalho, modais e rodapé.
+2. `bg-rose-900` — Cor de fundo carmim intenso para botões primários e detalhes da interface.
+3. `bg-rose-50` — Fundo tom rosa suave utilizado no modelo de carta Poético & Floral e nos botões de refinamento.
+4. `bg-amber-500` — Cor de fundo em tom ouro metálico vibrante para destaques, ícones e botões.
+5. `bg-amber-50` — Fundo off-white com tom amarelado sutil para os modelos de carta selecionados.
+6. `bg-stone-100` — Fundo neutro e acolhedor de toda a página web.
+7. `bg-white` — Fundo branco puro para os cartões de formulário, campos e modais.
+8. `bg-gradient-to-r` — Aplica gradiente linear da esquerda para a direita nos botões de ação e títulos.
+9. `bg-gradient-to-tr` — Aplica gradiente diagonal para dar profundidade aos selos e ícones.
 
-## 🎨 Tabela de Classes Tailwind CSS Utilizadas (+40 Classes)
+### 🔤 Tipografia e Estilização de Texto
+10. `font-serif` — Aplica a fonte serifada clássica literária (*Cormorant Garamond / Playfair Display*).
+11. `font-sans` — Aplica a fonte limpa e moderna para leitura rápida dos botões e campos (*Plus Jakarta Sans*).
+12. `font-handwriting` — Fonte estilo caligrafia manuscrita para a assinatura da carta (*Dancing Script*).
+13. `text-amber-100` / `text-amber-300` — Cor de texto dourada clara para leitura sobre fundos escuros.
+14. `text-rose-950` — Cor de texto carmim escuro de alto contraste para os títulos principais.
+15. `text-stone-800` — Cor neutra e legível para o corpo da carta de amor.
+16. `text-xs` / `text-sm` / `text-base` — Tamanhos de fonte para rótulos, legendas e corpo de texto.
+17. `text-2xl` / `text-3xl` / `text-5xl` — Escala tipográfica para os títulos do Hero e das seções.
+18. `font-bold` / `font-semibold` — Pesos de fonte para indicar hierarquia e destaque.
+19. `italic` — Estilo itálico para saudações e frases românticas.
+20. `tracking-wider` / `tracking-widest` — Espaçamento entre letras para destacar termos em caixas altas.
+21. `leading-relaxed` / `leading-tight` — Entrelinhas ajustadas para leitura agradável.
+22. `bg-clip-text` — Recorta o fundo de gradiente no formato exato das letras do título.
 
-Conforme os requisitos da atividade acadêmica, a tabela abaixo documenta mais de 30 classes do **Tailwind CSS** utilizadas no projeto com suas respectivas funções:
+### 📐 Espaçamentos, Dimensões e Bordas
+23. `p-3` / `p-5` / `p-8` / `p-12` — Padding interno em múltiplos tamanhos.
+24. `px-4` / `py-2` / `py-3.5` — Preenchimento horizontal e vertical para botões de ação.
+25. `space-y-3` / `space-y-4` / `space-y-6` — Espaçamento vertical automático entre elementos empilhados.
+26. `gap-3` / `gap-8` — Espaçamento em malhas Grid e Flexbox.
+27. `w-full` / `max-w-4xl` / `max-w-7xl` — Larguras responsivas e limites de contêineres centrais.
+28. `min-h-screen` / `min-h-[650px]` — Altura mínima da tela e da folha da carta de amor.
+29. `rounded-xl` / `rounded-2xl` / `rounded-full` — Arredondamento suave de cantos de cards e botões.
+30. `border` / `border-2` / `border-4` — Definidores de espessura de contornos ornamentais.
+31. `border-amber-400` / `border-rose-200` — Cores ornamentais douradas e carmim para bordas.
 
-| Categoria | Classe Tailwind | Função e Aplicação no Código |
-| :--- | :--- | :--- |
-| **Cores de Fundo** | `bg-rose-950` | Define o fundo vinho escuro no cabeçalho e rodapé. |
-| **Cores de Fundo** | `bg-rose-900` | Fundo carmim profundo para botões de ação e destaques. |
-| **Cores de Fundo** | `bg-amber-500` | Cor de destaque em tom ouro metálico para ícones e badges. |
-| **Cores de Fundo** | `bg-amber-50` | Fundo tom off-white levemente amarelado nos cards selecionados. |
-| **Cores de Fundo** | `bg-stone-100` | Fundo principal da aplicação (tom neutro e acolhedor). |
-| **Cores de Fundo** | `bg-white` | Fundo limpo dos cartões de formulário e modal. |
-| **Cores de Texto** | `text-amber-100` | Cor do texto dourado claro em fundos escuros. |
-| **Cores de Texto** | `text-rose-950` | Cor carmim escura para títulos de formulários e cabeçalhos da carta. |
-| **Cores de Texto** | `text-stone-800` | Cor padrão para o corpo da carta, garantindo ótima legibilidade. |
-| **Cores de Texto** | `text-transparent` | Torna o texto transparente para aplicação de gradientes. |
-| **Gradientes** | `bg-gradient-to-r` | Aplica gradiente linear da esquerda para a direita em botões. |
-| **Gradientes** | `bg-clip-text` | Recorta o gradiente de fundo no formato do texto do título. |
-| **Tipografia** | `font-serif` | Aplica a família tipográfica serifada elegante para estilo literário. |
-| **Tipografia** | `font-sans` | Aplica a família tipográfica limpa para elementos de interface. |
-| **Tipografia** | `font-handwriting` | Fonte caligráfica manuscrita para a assinatura da carta. |
-| **Tipografia** | `text-xs / text-sm / text-base` | Escala de tamanho dos textos explicativos, rótulos e corpo da carta. |
-| **Tipografia** | `text-2xl / text-4xl / text-5xl` | Escala de títulos principais e cabeçalhos em destaque. |
-| **Tipografia** | `font-bold / font-semibold` | Define a intensidade do peso da fonte nos elementos. |
-| **Tipografia** | `italic` | Aplica estilo itálico poético na carta e notas de ajuda. |
-| **Tipografia** | `tracking-widest` | Aumenta o espaçamento entre letras em legendas em caixa alta. |
-| **Tipografia** | `leading-relaxed` | Define um espaçamento entrelinhas confortável para leitura. |
-| **Espaçamentos** | `p-3 / p-5 / p-8 / p-12` | Preenchimento interno em múltiplos níveis (Padding). |
-| **Espaçamentos** | `px-4 / py-2 / py-3.5` | Preenchimentos horizontais e verticais padronizados em botões. |
-| **Espaçamentos** | `space-y-3 / space-y-4 / space-y-6` | Espaçamento vertical automático entre elementos filhos. |
-| **Espaçamentos** | `gap-3 / gap-8` | Espaçamento interno entre itens de containers Flex e Grid. |
-| **Dimensões** | `w-full / max-w-4xl / max-w-7xl` | Define larguras operacionais e limites para responsividade. |
-| **Dimensões** | `min-h-screen / min-h-[650px]` | Define a altura mínima da janela e da folha da carta. |
-| **Bordas** | `border / border-2 / border-4` | Define as espessuras das bordas visuais dos cards e folhas. |
-| **Bordas** | `border-amber-400 / border-rose-200` | Cores ornamentais douradas e carmim para os contornos. |
-| **Bordas** | `rounded-xl / rounded-2xl / rounded-full` | Arredondamento suave de cantos e elementos circulares. |
-| **Sombras** | `shadow-md / shadow-xl / shadow-2xl` | Aplica sombras de profundidade em cartões e na folha da carta. |
-| **Sombras** | `ring-2 / ring-amber-400/30` | Efeito de anel fluorescente ao selecionar o modelo ativo. |
-| **Flexbox** | `flex / flex-col / flex-wrap` | Habilita o modelo Flexbox e define a orientação e quebra dos itens. |
-| **Flexbox** | `items-center / justify-between` | Alinhamento vertical e distribuição dos elementos no espaço flex. |
-| **Grid** | `grid / grid-cols-1 / grid-cols-2` | Define a malha responsiva para o formulário e opções. |
-| **Grid** | `lg:grid-cols-12` | Malha de 12 colunas no breakpoint desktop (`lg`). |
-| **Posicionamento** | `relative / absolute / fixed / sticky` | Define os modos de posicionamento espacial na tela. |
-| **Posicionamento** | `top-0 / inset-0 / z-10 / z-30 / z-50` | Define a fixação e as camadas verticais (z-index) dos modais. |
-| **Responsividade**| `sm: / md: / lg:` | Breakpoints adaptativos mobile-first. |
-| **Interatividade**| `hover:bg-amber-400 / transition-all` | Transições suaves e efeitos ao passar o mouse. |
-| **Efeitos** | `backdrop-blur-md / animate-pulse` | Desfoque de fundo em cabeçalhos e animação pulsante. |
+### 🎭 Profundidade, Efeitos e Flexbox/Grid
+32. `shadow-md` / `shadow-xl` / `shadow-2xl` — Efeitos de sombra projetada de alta qualidade.
+33. `ring-2` / `ring-amber-400/30` — Efeito de anel de realce no modelo de papel ativo.
+34. `flex` / `flex-col` / `flex-wrap` — Alinhamento flexível e quebra de elementos.
+35. `items-center` / `justify-between` / `justify-center` — Centralização e distribuição de espaço flex.
+36. `grid` / `grid-cols-1` / `grid-cols-2` — Malha estrutural para formulários e seleção de modelos.
+37. `lg:grid-cols-12` — Layout em 12 colunas no desktop (5 colunas para formulário, 7 para a carta).
+38. `relative` / `absolute` / `fixed` / `sticky` — Posicionamento de modais, fundos e cabeçalho fixo.
+39. `top-0` / `inset-0` / `z-10` / `z-30` / `z-50` — Ordem de empilhamento de camadas e fixação superior.
+40. `backdrop-blur-md` — Efeito de vidro fosco no cabeçalho e nos modais.
+41. `animate-pulse` / `animate-spin` — Animações nativas para o coração e o carregamento visual.
+42. `transition-all` / `duration-300` — Transições suaves ao passar o mouse ou interagir.
+43. `hover:bg-amber-400` / `hover:scale-105` — Efeitos interativos para hover em botões e cards.
 
 ---
 
-## 🚀 Como Executar o Projeto Localmente
+## ⚙️ 6. Como Executar e Testar o Projeto
 
-1. Clone o repositório ou faça o download dos arquivos:
-   ```bash
-   git clone https://github.com/seu-usuario/gerador-cartas-de-amor.git
-   ```
-2. Navegue até o diretório do projeto:
-   ```bash
-   cd gerador-cartas-de-amor
-   ```
-3. Abra o arquivo `index.html` em qualquer navegador web moderno (Google Chrome, Mozilla Firefox, Microsoft Edge ou Safari). Não é necessário instalar dependências nem servidores Node.js.
+1. Acesse o link do deploy na **Vercel** ou faça o clone deste repositório.
+2. Abra o arquivo `index.html` em qualquer navegador web moderno (Chrome, Edge, Firefox ou Safari).
+3. Preencha os campos na seção **Entrevista com o Declarante** (as dicas desaparecem automaticamente ao digitar).
+4. Clique em **"Gerar Carta com IA Automática"** e teste os botões de refinamento rápido (*Mais Poética*, *Mais Intensa*, *Mais Curta* e *Polir Gramática*).
+5. Escolha entre os 4 **Modelos do Papel**, edite qualquer trecho diretamente na folha se desejar e clique em **"Baixar PDF"**.
 
 ---
 
-## 📜 Licença e Créditos
+## ✍️ Assinatura do Autor
 
-Desenvolvido por **Ryan Amorim Carvalho** como parte do projeto prático de desenvolvimento web e estilização avançada com **Tailwind CSS**.
+Desenvolvido com dedicação por:
 
-*Sinta-se à vontade para contribuir, enviar feedback ou utilizar este gerador para espalhar o amor!* 💖
+**Ryan Amorim Carvalho**  
+*Projeto de Desenvolvimento Web & Interface Responsiva com Tailwind CSS*
