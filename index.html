@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Cartas de Amor - Amor em Palavras (Com IA Nativac)</title>
+    <title>Gerador de Cartas de Amor - Amor em Palavras</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -67,12 +67,12 @@
             font-weight: bold;
         }
 
-        /* Efeito de carregamento brilhante da IA */
+        /* Efeito de carregamento suave na composição */
         @keyframes pulseGlow {
             0%, 100% { opacity: 0.4; transform: scale(0.98); }
             50% { opacity: 0.95; transform: scale(1.02); }
         }
-        .ai-glow {
+        .composer-glow {
             animation: pulseGlow 2s infinite ease-in-out;
         }
     
@@ -162,7 +162,7 @@
                     <h1 class="font-serif text-2xl sm:text-3xl font-bold tracking-wide bg-gradient-to-r from-amber-200 via-amber-400 to-rose-200 bg-clip-text text-transparent">
                         Cartas de Amor
                     </h1>
-                    <p class="text-xs text-rose-300 font-sans tracking-wider uppercase">Escriba Inteligente de Sentimentos</p>
+                    <p class="text-xs text-rose-300 font-sans tracking-wider uppercase">Escriba Romântico de Sentimentos</p>
                 </div>
             </div>
 
@@ -192,7 +192,7 @@
                 Sua História de Amor Transformada em Poesia Profunda
             </h2>
             <p class="text-rose-200/90 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Responda às perguntas sobre sua história, e criaremos uma declaração única, emocionante e pronta para baixar em PDF formatado.
+                Responda às perguntas sobre sua história e criaremos uma declaração única, emocionante e pronta para baixar em PDF formatado.
             </p>
         </div>
     </section>
@@ -348,22 +348,22 @@
                             </div>
                         </div>
 
-                        <!-- AUTOMATIC AI GENERATION BUTTON -->
+                        <!-- AUTOMATIC LETTER GENERATION BUTTON -->
                         <div class="pt-2">
-                            <button type="button" onclick="generateLetterWithAI()" id="btnGenerateAI"
+                            <button type="button" onclick="generateRomanticLetter()" id="btnGenerateLetter"
                                     class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-rose-900 via-rose-800 to-amber-600 hover:from-rose-950 hover:to-amber-700 text-amber-100 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 border border-amber-400/40 cursor-pointer">
                                 <i class="fa-solid fa-sparkles text-amber-300 animate-spin text-base"></i>
-                                <span class="tracking-wide">Gerar Carta</span>
+                                <span class="tracking-wide">Gerar Carta de Amor</span>
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: LIVE PREVIEW, AI REFINER & DOWNLOAD (7 COLS) -->
+            <!-- RIGHT COLUMN: LIVE PREVIEW, STYLE ADJUSTER & DOWNLOAD (7 COLS) -->
             <div class="lg:col-span-7 space-y-5">
 
-                <!-- TOOLBAR & QUICK REWRITE WITH AI -->
+                <!-- TOOLBAR & QUICK STYLE ADJUSTMENTS -->
                 <div class="bg-white rounded-2xl p-4 border border-rose-200 shadow-md space-y-3">
                     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 pb-3">
                         <div class="flex items-center space-x-2">
@@ -384,22 +384,22 @@
                         </div>
                     </div>
 
-                    <!-- AI REWRITE QUICK BUTTONS -->
+                    <!-- QUICK STYLE REFINEMENT BUTTONS -->
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <span class="text-[11px] font-bold text-rose-900 uppercase tracking-wider flex items-center">
-                            <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1.5"></i> Refinar:
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1.5"></i> Ajustar Estilo:
                         </span>
                         <div class="flex flex-wrap items-center gap-1.5">
-                            <button onclick="refineLetterWithAI('poetico')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                            <button onclick="adjustLetterStyle('poetico')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
                                 ✨ Mais Poética
                             </button>
-                            <button onclick="refineLetterWithAI('intenso')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                            <button onclick="adjustLetterStyle('intenso')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
                                 🔥 Mais Intensa
                             </button>
-                            <button onclick="refineLetterWithAI('curto')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                            <button onclick="adjustLetterStyle('curto')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
                                 📜 Mais Curta
                             </button>
-                            <button onclick="refineLetterWithAI('polido')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                            <button onclick="adjustLetterStyle('polido')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
                                 🖋️ Polir Gramática
                             </button>
                         </div>
@@ -415,13 +415,13 @@
                         <span>Você pode clicar no corpo do papel para alterar qualquer frase manualmente.</span>
                     </div>
 
-                    <!-- LOADING OVERLAY (DURING IA GENERATION) -->
-                    <div id="aiLoadingOverlay" class="absolute inset-0 bg-rose-950/75 backdrop-blur-sm rounded-2xl z-20 flex flex-col items-center justify-center p-6 text-amber-100 hidden transition-all">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-rose-600 flex items-center justify-center text-rose-950 text-2xl shadow-2xl ai-glow mb-4 border-2 border-amber-300">
+                    <!-- LOADING OVERLAY (DURING LETTER COMPOSITION) -->
+                    <div id="compositionLoadingOverlay" class="absolute inset-0 bg-rose-950/75 backdrop-blur-sm rounded-2xl z-20 flex flex-col items-center justify-center p-6 text-amber-100 hidden transition-all">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-rose-600 flex items-center justify-center text-rose-950 text-2xl shadow-2xl composer-glow mb-4 border-2 border-amber-300">
                             <i class="fa-solid fa-heart animate-ping"></i>
                         </div>
-                        <h4 class="font-serif text-2xl font-bold text-amber-200 mb-1">Escriba IA em Ação...</h4>
-                        <p class="text-xs text-rose-200 text-center max-w-xs leading-relaxed" id="aiLoadingText">
+                        <h4 class="font-serif text-2xl font-bold text-amber-200 mb-1">Compondo sua Carta...</h4>
+                        <p class="text-xs text-rose-200 text-center max-w-xs leading-relaxed" id="compositionLoadingText">
                             Transformando suas memórias, sorrisos e sentimentos em uma declaração emocionante...
                         </p>
                     </div>
@@ -612,12 +612,12 @@
                 Desenvolvido por <span class="text-amber-400 font-bold underline decoration-amber-500 underline-offset-4">Ryan Amorim Carvalho</span>
             </p>
             <p class="text-xs text-rose-400">
-                &copy; 2026 Escriba do Amor - Aplicação Web com Tailwind CSS, HTML5 e JavaScript puro.
+                &copy; 2026 Escriba do Amor - Aplicação Web com JavaScript e Tailwind CSS
             </p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC WITH 100% LOCAL INTELLIGENT ENGINE (VERCEL READY) -->
+    <!-- JAVASCRIPT LOGIC: ROMANTIC LETTER COMPOSER ENGINE -->
     <script>
         let currentTemplate = 'classico';
         let lastGeneratedData = null;
@@ -687,8 +687,8 @@
             return text.replace(/[.!?]+$/, '').trim();
         }
 
-        // 2. MOTOR INTELIGENTE LOCAL DE COMPOSIÇÃO ROMÂNTICA (100% OFFLINE / VERCEL)
-        function buildLocalLetter(data, styleOverride = null) {
+        // 2. MOTOR DE COMPOSIÇÃO ROMÂNTICA EM JAVASCRIPT PURO
+        function composeRomanticLetter(data, styleOverride = null) {
             const { lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise } = data;
             const activeStyle = styleOverride || tone;
 
@@ -810,8 +810,8 @@
             return [p1, p2, p3Parts.join(' '), p4];
         }
 
-        // 3. ACIONAR GERAÇÃO AUTOMÁTICA LOCAL
-        function generateLetterWithAI() {
+        // 3. ACIONAR COMPOSIÇÃO DA CARTA
+        function generateRomanticLetter() {
             const author = document.getElementById('authorName').value.trim() || "Gabriel";
             const lover = document.getElementById('loverName').value.trim() || "Beatriz";
             const tone = document.getElementById('letterTone').value;
@@ -829,18 +829,18 @@
             document.getElementById('paperSalutation').innerText = `Minha Querida ${lover},`;
             document.getElementById('paperSignature').innerText = author;
 
-            showAiLoading("Compondo sua declaração de amor personalizada...");
+            showComposerLoading("Compondo sua declaração de amor personalizada...");
 
             // Breve animação visual de 650ms para feedback fluido ao usuário
             setTimeout(() => {
-                const paragraphs = buildLocalLetter(lastGeneratedData);
+                const paragraphs = composeRomanticLetter(lastGeneratedData);
                 renderParagraphsToPaper(paragraphs);
-                hideAiLoading();
+                hideComposerLoading();
             }, 650);
         }
 
-        // 4. REFINAMENTO RÁPIDO EM 1 CLIQUE (100% LOCAL)
-        function refineLetterWithAI(actionType) {
+        // 4. AJUSTE RÁPIDO DE ESTILO EM 1 CLIQUE
+        function adjustLetterStyle(actionType) {
             const author = document.getElementById('authorName').value.trim() || "Gabriel";
             const lover = document.getElementById('loverName').value.trim() || "Beatriz";
             const tone = document.getElementById('letterTone').value;
@@ -861,7 +861,7 @@
                 polido: "Polindo a fluidez e a elegância do texto..."
             };
 
-            showAiLoading(labels[actionType] || "Refinando sua carta...");
+            showComposerLoading(labels[actionType] || "Refinando sua carta...");
 
             setTimeout(() => {
                 if (actionType === 'polido') {
@@ -880,13 +880,13 @@
                     if (currentParagraphs.length > 0) {
                         renderParagraphsToPaper(currentParagraphs);
                     } else {
-                        renderParagraphsToPaper(buildLocalLetter(currentData, 'Romântico Clássico'));
+                        renderParagraphsToPaper(composeRomanticLetter(currentData, 'Romântico Clássico'));
                     }
                 } else {
-                    const paragraphs = buildLocalLetter(currentData, actionType);
+                    const paragraphs = composeRomanticLetter(currentData, actionType);
                     renderParagraphsToPaper(paragraphs);
                 }
-                hideAiLoading();
+                hideComposerLoading();
             }, 450);
         }
 
@@ -905,13 +905,13 @@
         }
 
         // UI Helpers
-        function showAiLoading(text) {
-            document.getElementById('aiLoadingText').innerText = text;
-            document.getElementById('aiLoadingOverlay').classList.remove('hidden');
+        function showComposerLoading(text) {
+            document.getElementById('compositionLoadingText').innerText = text;
+            document.getElementById('compositionLoadingOverlay').classList.remove('hidden');
         }
 
-        function hideAiLoading() {
-            document.getElementById('aiLoadingOverlay').classList.add('hidden');
+        function hideComposerLoading() {
+            document.getElementById('compositionLoadingOverlay').classList.add('hidden');
         }
 
         function copyLetterText() {
@@ -970,7 +970,7 @@ ${signature}`;
                     scrollX: 0,
                     scrollY: 0,
                     onclone: (clonedDoc) => {
-                        const overlay = clonedDoc.getElementById('aiLoadingOverlay');
+                        const overlay = clonedDoc.getElementById('compositionLoadingOverlay');
                         if (overlay) overlay.style.display = 'none';
 
                         const clonedPaper = clonedDoc.getElementById('letterPaper');
@@ -1036,7 +1036,7 @@ ${signature}`;
         }
 
         function generateReadmeMarkdown() {
-            const readme = `# 💌 Gerador de Cartas de Amor com Motor Inteligente
+            const readme = `# 💌 Gerador de Cartas de Amor com Tailwind CSS e JavaScript
 
 > Projeto desenvolvido como atividade prática de desenvolvimento Web responsivo utilizando **Tailwind CSS** e composição textual inteligente em JavaScript puro.
 
@@ -1047,8 +1047,8 @@ ${signature}`;
 ---
 
 ## 🚀 Funcionalidades da Aplicação
-1. **Motor Inteligente de Composição (100% Client-Side):** Lê a entrevista guiada e estrutura declarações personalizadas de acordo com o tom selecionado (Clássico, Apaixonado, Poético ou Carinhoso), funcionando sem dependências externas.
-2. **Refinamento em 1 Clique:** Botões de ação rápida para transformar a carta em uma versão mais poética, mais intensa, mais curta ou polir a pontuação.
+1. **Motor de Composição Textual em JavaScript Puro:** Lê a entrevista guiada e estrutura declarações personalizadas de acordo com o tom selecionado (Clássico, Apaixonado, Poético ou Carinhoso), funcionando sem dependências externas.
+2. **Ajuste de Estilo em 1 Clique:** Botões de ação rápida para transformar a carta em uma versão mais poética, mais intensa, mais curta ou polir a pontuação.
 3. **4 Modelos Elegantes de Carta:** Clássico Real (Pergaminho com Selo de Cera), Paixão Carmim (Vinho & Dourado), Minimalista e Poético & Floral.
 4. **Entrevista Guiada com o Declarante:** Coleta de momentos, sentimentos de distância/proximidade, memórias felizes e promessas de futuro com campos intuitivos (\`placeholder\`).
 5. **Edição Direta no Papel:** Corpo da carta totalmente editável (\`contenteditable="true"\`).
