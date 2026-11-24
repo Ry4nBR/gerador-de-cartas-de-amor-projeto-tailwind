@@ -544,13 +544,10 @@
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC WITH AUTOMATIC GEMINI IA INTEGRATION -->
+    <!-- JAVASCRIPT LOGIC WITH 100% LOCAL INTELLIGENT ENGINE (VERCEL READY) -->
     <script>
-        // API Configuration (Gemini API for Web Runtime)
-        const apiKey = "";
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
         let currentTemplate = 'classico';
+        let lastGeneratedData = null;
 
         document.addEventListener('DOMContentLoaded', () => {
             const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -607,8 +604,141 @@
             }
         }
 
-        // 2. AUTOMATIC GEMINI IA LETTER GENERATOR
-        async function generateLetterWithAI() {
+        // Helper para escolher frases variadas aleatoriamente
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // Helper para formatar trecho sem deixar pontos duplicados
+        function cleanFragment(text) {
+            return text.replace(/[.!?]+$/, '').trim();
+        }
+
+        // 2. MOTOR INTELIGENTE LOCAL DE COMPOSIÇÃO ROMÂNTICA (100% OFFLINE / VERCEL)
+        function buildLocalLetter(data, styleOverride = null) {
+            const { lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise } = data;
+            const activeStyle = styleOverride || tone;
+
+            // --- ESTILO CURTO ---
+            if (activeStyle === 'curto') {
+                const p1 = met
+                    ? `Desde o instante em que nos conhecemos (${cleanFragment(met)}), minha vida ganhou uma luz completamente nova ao seu lado, ${lover}.`
+                    : `Escrevo estas breves linhas apenas para lembrar o quanto você transforma os meus dias, ${lover}.`;
+                
+                const p2 = `Quando estou perto de você, sinto ${cleanFragment(feelClose || 'uma paz imensa')}. ${thoughtFreq ? `Penso em você ${cleanFragment(thoughtFreq).toLowerCase()}, ` : 'Penso em você a todo momento, '}e quando estamos longe, o que fica é ${cleanFragment(feelFar || 'uma saudade que aperta o peito')}.`;
+                
+                const p3 = `${specialMoment ? `Guardo no coração ${cleanFragment(specialMoment).toLowerCase()}, e ` : ''}Minha maior promessa é ${cleanFragment(promise || 'estar sempre ao seu lado, te amando hoje e sempre')}.`;
+
+                return [p1, p2, p3];
+            }
+
+            // --- ESTILO POÉTICO / LÍRICO ---
+            if (activeStyle.includes('Poético') || activeStyle === 'poetico') {
+                const openings = [
+                    `Há encontros que parecem escritos nas estrelas muito antes de acontecerem, ${lover}.`,
+                    `Se eu pudesse traduzir em versos tudo o que habita meu peito desde que você chegou, ${lover}, faltariam páginas ao mundo.`,
+                    `Como uma melodia suave que acalma a alma, sua presença reescreveu o sentido de cada amanhecer meu, ${lover}.`
+                ];
+                const metClause = met
+                    ? ` Desde aquela lembrança marcante (${cleanFragment(met)}), descobri que o amor mora nos detalhes mais bonitos da vida.`
+                    : ` Desde que nossos caminhos se entrelaçaram, descobri que o amor mora nos detalhes mais bonitos da vida.`;
+
+                const p1 = pickRandom(openings) + metClause;
+
+                const p2 = `A sua proximidade é o meu refúgio favorito: ao seu lado, tudo se resume a ${cleanFragment(feelClose || 'uma serenidade infinita e um sorriso espontâneo')}. ${thoughtFreq ? `Minha mente viaja até você ${cleanFragment(thoughtFreq).toLowerCase()}.` : 'Você habita meus pensamentos em cada hora silenciosa do dia.'} E quando a distância ousa nos separar, resta-me ${cleanFragment(feelFar || 'o doce e intenso eco da sua falta')}.`;
+
+                const p3Parts = [];
+                if (specialMoment) {
+                    p3Parts.push(`Guardo em um lugar sagrado da memória ${cleanFragment(specialMoment).toLowerCase()}.`);
+                }
+                if (happyMemories) {
+                    p3Parts.push(`Cada instante compartilhado, especialmente ${cleanFragment(happyMemories).toLowerCase()}, brilha como poesia viva dentro de mim.`);
+                }
+                if (p3Parts.length === 0) {
+                    p3Parts.push(`Cada sorriso que dividimos se transforma em um verso eterno na história que estamos escrevendo juntos.`);
+                }
+
+                const p4 = `Para todos os capítulos que ainda virão, deixo selada a minha promessa: ${cleanFragment(promise || 'amar você com a mesma ternura em todas as estações da vida')}.`;
+
+                return [p1, p2, p3Parts.join(' '), p4];
+            }
+
+            // --- ESTILO APAIXONADO / INTENSO ---
+            if (activeStyle.includes('Apaixonado') || activeStyle === 'intenso') {
+                const openings = [
+                    `${lover}, existem sentimentos que transbordam qualquer tentativa de silêncio, e o que sinto por você é a maior certeza da minha vida.`,
+                    `Escrevo com o coração acelerado, ${lover}, porque amar você é a experiência mais intensa e verdadeira que já vivi.`,
+                    `Nada em mim permaneceu igual desde que você entrou na minha história, ${lover}.`
+                ];
+                const metClause = met
+                    ? ` Tudo começou quando nos conhecemos (${cleanFragment(met)}), e desde então esse sentimento só cresceu sem pedir licença.`
+                    : ` Desde o nosso primeiro olhar, esse sentimento tomou conta de tudo dentro de mim.`;
+
+                const p1 = pickRandom(openings) + metClause;
+
+                const p2 = `Estar perto de você desperta em mim ${cleanFragment(feelClose || 'uma energia avassaladora e uma felicidade completa')}. Não há um só dia em que você não seja o centro do meu mundo — penso em você ${cleanFragment(thoughtFreq || 'a cada segundo')}. Por isso, quando estamos longe, sinto ${cleanFragment(feelFar || 'uma falta profunda que só passa no teu abraço')}.`;
+
+                const p3Parts = [];
+                if (specialMoment) {
+                    p3Parts.push(`Nunca vou esquecer ${cleanFragment(specialMoment).toLowerCase()}, um marco que gravou você ainda mais fundo em mim.`);
+                }
+                if (happyMemories) {
+                    p3Parts.push(`As nossas lembranças, como ${cleanFragment(happyMemories).toLowerCase()}, são o combustível que mantém essa chama sempre acesa.`);
+                }
+                if (p3Parts.length === 0) {
+                    p3Parts.push(`Cada segundo ao teu lado confirma que é com você que eu quero viver todas as minhas melhores histórias.`);
+                }
+
+                const p4 = `O meu compromisso com você é inteiro e sem reservas: ${cleanFragment(promise || 'ser seu companheiro fiel e amar você com toda a intensidade do meu ser')}.`;
+
+                return [p1, p2, p3Parts.join(' '), p4];
+            }
+
+            // --- ESTILO CARINHOSO, LEVE & DIVERTIDO ---
+            if (activeStyle.includes('Carinhoso')) {
+                const p1 = `Oi, ${lover}! Estava aqui pensando na gente e decidi colocar no papel o quanto você faz bem para o meu coração. ${met ? `Desde que nos conhecemos (${cleanFragment(met)}), você virou a minha pessoa favorita no mundo inteiro!` : `Desde que você chegou, meus dias ficaram infinitamente mais leves e coloridos!`}`;
+                
+                const p2 = `É incrível como estar perto de você me traz ${cleanFragment(feelClose || 'uma alegria gostosa e uma paz sem tamanho')}. Eu penso em você ${cleanFragment(thoughtFreq || 'o tempo todo, até nas coisas mais bobas do dia')}, e quando a gente fica longe bate logo ${cleanFragment(feelFar || 'aquela vontade imensa de te ver e te dar um abraço apertado')}.`;
+
+                const p3 = `${specialMoment ? `Sempre dou um sorriso bobo quando lembro de ${cleanFragment(specialMoment).toLowerCase()}. ` : ''}${happyMemories ? `Amo demais ${cleanFragment(happyMemories).toLowerCase()} e cada detalhe do nosso jeito juntos.` : `Amo cada risada nossa e a sintonia incrível que a gente tem.`}`;
+
+                const p4 = `O que eu mais quero daqui para frente é ${cleanFragment(promise || 'continuar colecionando momentos incríveis ao seu lado e fazendo você sorrir todos os dias')}.`;
+
+                return [p1, p2, p3, p4];
+            }
+
+            // --- ESTILO PADRÃO: ROMÂNTICO CLÁSSICO & ELEGANTE ---
+            const classicOpenings = [
+                `Escrevo esta carta com o coração transbordando dos mais nobres e sinceros sentimentos por você, ${lover}.`,
+                `Há palavras que merecem ser eternizadas no papel, ${lover}, e nenhuma delas é mais verdadeira do que o amor que nutro por você.`,
+                `Dedico estas linhas a você, ${lover}, que se tornou a parte mais luminosa e essencial da minha história.`
+            ];
+            const metClause = met
+                ? ` Desde que nossas vidas se cruzaram (${cleanFragment(met)}), compreendi que o destino havia me presenteado com algo verdadeiramente raro.`
+                : ` Desde o momento em que nossos caminhos se uniram, compreendi que havia encontrado algo verdadeiramente raro e precioso.`;
+
+            const p1 = pickRandom(classicOpenings) + metClause;
+
+            const p2 = `A sua presença transforma o meu mundo: estar ao seu lado me proporciona ${cleanFragment(feelClose || 'uma paz imediata, segurança e uma alegria genuína')}. ${thoughtFreq ? `Meu pensamento encontra você ${cleanFragment(thoughtFreq).toLowerCase()}.` : 'Em todos os momentos do meu dia, meu pensamento encontra você.'} E quando a distância se interpõe entre nós, o que permanece é ${cleanFragment(feelFar || 'uma saudade serena e o desejo constante do seu abraço')}.`;
+
+            const p3Parts = [];
+            if (specialMoment) {
+                p3Parts.push(`Guardo com imenso carinho na memória ${cleanFragment(specialMoment).toLowerCase()}.`);
+            }
+            if (happyMemories) {
+                p3Parts.push(`Lembranças preciosas como essa, somadas a ${cleanFragment(happyMemories).toLowerCase()}, fortalecem a cada dia o laço que construímos.`);
+            }
+            if (p3Parts.length === 0) {
+                p3Parts.push(`Cada instante vivido ao seu lado se transforma em uma lembrança inesquecível que aquece meu coração.`);
+            }
+
+            const p4 = `Olhando para o horizonte que se abre à nossa frente, minha maior promessa é ${cleanFragment(promise || 'permanecer ao seu lado, cuidando de você e amando-a todos os dias da minha vida')}.`;
+
+            return [p1, p2, p3Parts.join(' '), p4];
+        }
+
+        // 3. ACIONAR GERAÇÃO AUTOMÁTICA LOCAL
+        function generateLetterWithAI() {
             const author = document.getElementById('authorName').value.trim() || "Gabriel";
             const lover = document.getElementById('loverName').value.trim() || "Beatriz";
             const tone = document.getElementById('letterTone').value;
@@ -620,93 +750,75 @@
             const happyMemories = document.getElementById('happyMemories').value.trim();
             const promise = document.getElementById('futurePromise').value.trim();
 
-            // Update Header & Signature
+            lastGeneratedData = { author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise };
+
+            // Atualiza Cabeçalho e Assinatura
             document.getElementById('paperSalutation').innerText = `Minha Querida ${lover},`;
             document.getElementById('paperSignature').innerText = author;
 
-            // Show Loading Overlay
-            showAiLoading("O escriba IA está conectando os sentimentos e escrevendo a carta...");
+            showAiLoading("Compondo sua declaração de amor personalizada...");
 
-            const systemPrompt = "Você é um poeta romântico e escritor apaixonado. Escreva uma linda carta de amor em português dividida rigorosamente em 4 parágrafos envolventes. Não inclua saudações iniciais nem assinaturas no texto (elas já existem no papel). Retorne APENAS os 4 parágrafos separados por duas quebras de linha.";
-            
-            const userPrompt = `Escreva uma carta de amor para ${lover}, escrita por ${author}.
-Tom desejado: ${tone}.
-Como se conheceram: ${met}.
-O que sinto quando estou perto: ${feelClose}.
-O que sinto quando estou longe: ${feelFar}.
-Frequência com que penso nela: ${thoughtFreq}.
-Momento marcante juntos: ${specialMoment}.
-Memórias felizes: ${happyMemories}.
-Promessa para o futuro: ${promise}.`;
+            // Breve animação visual de 650ms para feedback fluido ao usuário
+            setTimeout(() => {
+                const paragraphs = buildLocalLetter(lastGeneratedData);
+                renderParagraphsToPaper(paragraphs);
+                hideAiLoading();
+            }, 650);
+        }
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: userPrompt }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    })
-                });
+        // 4. REFINAMENTO RÁPIDO EM 1 CLIQUE (100% LOCAL)
+        function refineLetterWithAI(actionType) {
+            const author = document.getElementById('authorName').value.trim() || "Gabriel";
+            const lover = document.getElementById('loverName').value.trim() || "Beatriz";
+            const tone = document.getElementById('letterTone').value;
+            const met = document.getElementById('howWeMet').value.trim();
+            const feelClose = document.getElementById('feelClose').value.trim();
+            const feelFar = document.getElementById('feelFar').value.trim();
+            const thoughtFreq = document.getElementById('thoughtFreq').value.trim();
+            const specialMoment = document.getElementById('specialMoment').value.trim();
+            const happyMemories = document.getElementById('happyMemories').value.trim();
+            const promise = document.getElementById('futurePromise').value.trim();
 
-                const data = await response.json();
-                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            const currentData = { author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise };
 
-                if (aiText) {
-                    renderTextToPaper(aiText);
+            const labels = {
+                poetico: "Aplicando estilo poético e lírico...",
+                intenso: "Intensificando a paixão nas palavras...",
+                curto: "Sintetizando em uma versão concisa e marcante...",
+                polido: "Polindo a fluidez e a elegância do texto..."
+            };
+
+            showAiLoading(labels[actionType] || "Refinando sua carta...");
+
+            setTimeout(() => {
+                if (actionType === 'polido') {
+                    // Polir formatação e pontuação do texto atual no papel
+                    const bodyEl = document.getElementById('paperBody');
+                    const currentParagraphs = Array.from(bodyEl.querySelectorAll('p'))
+                        .map(p => p.innerText.trim())
+                        .filter(t => t.length > 0)
+                        .map(t => {
+                            let polished = t.replace(/\s+/g, ' ');
+                            polished = polished.charAt(0).toUpperCase() + polished.slice(1);
+                            if (!/[.!?]$/.test(polished)) polished += '.';
+                            return polished;
+                        });
+
+                    if (currentParagraphs.length > 0) {
+                        renderParagraphsToPaper(currentParagraphs);
+                    } else {
+                        renderParagraphsToPaper(buildLocalLetter(currentData, 'Romântico Clássico'));
+                    }
                 } else {
-                    fallbackLocalGeneration(author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise);
+                    const paragraphs = buildLocalLetter(currentData, actionType);
+                    renderParagraphsToPaper(paragraphs);
                 }
-            } catch (error) {
-                console.warn("API indisponível no momento, utilizando motor inteligente local:", error);
-                fallbackLocalGeneration(author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise);
-            } finally {
                 hideAiLoading();
-            }
+            }, 450);
         }
 
-        // 3. REFINING / REWRITING WITH IA (1-CLICK)
-        async function refineLetterWithAI(actionType) {
-            const currentBody = document.getElementById('paperBody').innerText;
-            const lover = document.getElementById('loverName').value.trim() || "Pessoa Amada";
-
-            showAiLoading(`Ajustando o tom da carta (${actionType})...`);
-
-            let instruction = "";
-            if (actionType === 'poetico') instruction = "Reescreva a carta tornando-a extremamente poética, lírica, usando metáforas sutis de amor e beleza.";
-            else if (actionType === 'intenso') instruction = "Reescreva a carta tornando-a muito mais intensa, apaixonada, profunda e ardente.";
-            else if (actionType === 'curto') instruction = "Resuma a carta para torná-la mais concisa, objetiva e direta, mantendo a emoção máxima em menos texto.";
-            else if (actionType === 'polido') instruction = "Corrija pequenos erros gramaticais e aprimore o estilo de escrita mantendo o mesmo conteúdo.";
-
-            const systemPrompt = "Você é um revisor e poeta romântico profissional. Reescreva o texto da carta de amor fornecido seguindo as instruções. Retorne exatamente 3 ou 4 parágrafos. Não inclua saudações nem assinaturas.";
-            const userPrompt = `${instruction}\n\nTexto atual da carta:\n${currentBody}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: userPrompt }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    })
-                });
-
-                const data = await response.json();
-                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                if (aiText) {
-                    renderTextToPaper(aiText);
-                }
-            } catch (error) {
-                console.error("Erro ao refinar:", error);
-            } finally {
-                hideAiLoading();
-            }
-        }
-
-        // Render formatted text to paper
-        function renderTextToPaper(rawText) {
-            const paragraphs = rawText.split('\n\n').filter(p => p.trim() !== '');
+        // Renderizar parágrafos formatados no papel
+        function renderParagraphsToPaper(paragraphs) {
             let html = '';
             paragraphs.forEach((p, index) => {
                 const cleanP = p.replace(/^["']|["']$/g, '').trim();
@@ -717,16 +829,6 @@ Promessa para o futuro: ${promise}.`;
                 }
             });
             document.getElementById('paperBody').innerHTML = html;
-        }
-
-        // Fallback generator algorithm
-        function fallbackLocalGeneration(author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise) {
-            const p1 = `Escrevo esta carta com o coração repleto de afeto. Desde que nossas vidas se cruzaram em ${met || "um momento especial"}, soube que você traria um brilho único para os meus dias.`;
-            const p2 = `Estar ao seu lado me faz sentir ${feelClose || "uma paz indescritível"}. Pensar em você acontece ${thoughtFreq || "a todo instante"}, e quando a distância nos separa, carrego comigo ${feelFar || "uma saudade imensa"}.`;
-            const p3 = `Guardo como um tesouro inestimável aquele dia em que ${specialMoment || "compartilhamos sorrisos únicos"}. Lembranças como essa, somadas a ${happyMemories || "nossos momentos de alegria"}, mostram a força do que sentimos.`;
-            const p4 = `Para o nosso futuro, minha promessa mais verdadeira é ${promise || "estar sempre ao seu lado te amando"}.`;
-
-            renderTextToPaper(`${p1}\n\n${p2}\n\n${p3}\n\n${p4}`);
         }
 
         // UI Helpers
@@ -743,16 +845,26 @@ Promessa para o futuro: ${promise}.`;
             const salutation = document.getElementById('paperSalutation').innerText;
             const body = document.getElementById('paperBody').innerText;
             const signature = document.getElementById('paperSignature').innerText;
-            const fullText = `${salutation}\n\n${body}\n\nCom amor,\n${signature}`;
+            const fullText = `${salutation}
 
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = fullText;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
+${body}
 
-            alert('O texto da carta foi copiado para a área de transferência!');
+Com amor,
+${signature}`;
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(fullText).then(() => {
+                    alert('O texto da carta foi copiado para a área de transferência!');
+                });
+            } else {
+                const dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = fullText;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+                alert('O texto da carta foi copiado para a área de transferência!');
+            }
         }
 
         function downloadPDF() {
@@ -779,9 +891,9 @@ Promessa para o futuro: ${promise}.`;
         }
 
         function generateReadmeMarkdown() {
-            const readme = `# 💌 Gerador de Cartas de Amor com IA Automática
+            const readme = `# 💌 Gerador de Cartas de Amor com Motor Inteligente
 
-> Projeto desenvolvido como atividade prática de desenvolvimento Web responsivo utilizando **Tailwind CSS** e **Inteligência Artificial Nativa**.
+> Projeto desenvolvido como atividade prática de desenvolvimento Web responsivo utilizando **Tailwind CSS** e composição textual inteligente em JavaScript puro.
 
 ## 👤 Autor
 - **Nome:** Ryan Amorim Carvalho
@@ -790,10 +902,10 @@ Promessa para o futuro: ${promise}.`;
 ---
 
 ## 🚀 Funcionalidades da Aplicação
-1. **Geração por IA 100% Automática (Gemini API):** O próprio site lê a entrevista guiada e gera uma declaração emocionante e personalizada em segundos.
-2. **Refinamento em 1 Clique com IA:** Botões de ação rápida para deixar a carta mais poética, mais intensa, mais curta ou aprimorar a gramática sem sair da página.
+1. **Motor Inteligente de Composição (100% Client-Side):** Lê a entrevista guiada e estrutura declarações personalizadas de acordo com o tom selecionado (Clássico, Apaixonado, Poético ou Carinhoso), funcionando sem dependências externas.
+2. **Refinamento em 1 Clique:** Botões de ação rápida para transformar a carta em uma versão mais poética, mais intensa, mais curta ou polir a pontuação.
 3. **4 Modelos Elegantes de Carta:** Clássico Real (Pergaminho com Selo de Cera), Paixão Carmim (Vinho & Dourado), Minimalista e Poético & Floral.
-4. **Entrevista Guiada com o Declarante:** Coleta de momentos, sentimentos de distância/proximidade, memórias felizes e promessas de futuro.
+4. **Entrevista Guiada com o Declarante:** Coleta de momentos, sentimentos de distância/proximidade, memórias felizes e promessas de futuro com campos intuitivos (\`placeholder\`).
 5. **Edição Direta no Papel:** Corpo da carta totalmente editável (\`contenteditable="true"\`).
 6. **Download em PDF:** Exportação de alta fidelidade visual via \`html2pdf.js\`.
 
