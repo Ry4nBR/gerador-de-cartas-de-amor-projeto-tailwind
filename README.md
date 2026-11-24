@@ -6,8 +6,8 @@
 
 ## 🔗 1. Links do Projeto Desenvolvido
 
-* **Repositório no GitHub:** `https://github.com/seu-usuario/gerador-cartas-de-amor` *(substitua pelo link do seu repositório)*
-* **Aplicação em Funcionamento (Vercel):** `https://seu-projeto.vercel.app` *(substitua pelo link do deploy na Vercel)*
+* **Repositório no GitHub:** `https://github.com/Ry4nBR/gerador-de-cartas-de-amor-projeto-tailwind
+* **Aplicação em Funcionamento (Vercel):** https://gerador-de-cartas-de-amor-projeto-t.vercel.app/
 
 ---
 
