@@ -39,7 +39,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- html2pdf Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
         /* Textura do papel parchment e detalhes ornamentais */
@@ -81,6 +82,14 @@
             margin: 0;
         }
         @media print {
+            html, body {
+                width: 210mm !important;
+                height: 297mm !important;
+                max-height: 297mm !important;
+                overflow: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
             body * {
                 visibility: hidden !important;
             }
@@ -368,7 +377,7 @@
                                 <span class="hidden sm:inline">Copiar Texto</span>
                             </button>
 
-                            <button onclick="downloadPDF()" title="Baixar PDF Formatado" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-rose-950 font-bold text-xs shadow transition-all flex items-center space-x-1.5 cursor-pointer border border-amber-300">
+                            <button type="button" onclick="downloadPDF()" title="Baixar PDF Formatado" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-rose-950 font-bold text-xs shadow transition-all flex items-center space-x-1.5 cursor-pointer border border-amber-300">
                                 <i class="fa-solid fa-file-pdf text-rose-900"></i>
                                 <span>Baixar PDF</span>
                             </button>
@@ -931,7 +940,12 @@ ${signature}`;
             }
         }
 
+        let isGeneratingPdf = false;
+
         async function downloadPDF() {
+            if (isGeneratingPdf) return;
+            isGeneratingPdf = true;
+
             const originalElement = document.getElementById('letterPaper');
             const rawLoverName = document.getElementById('loverName').value.trim();
             const safeName = rawLoverName ? rawLoverName.replace(/\s+/g, '_') : "Especial";
@@ -944,8 +958,6 @@ ${signature}`;
             }
 
             try {
-                // Usa onclone do html2canvas: renderiza em memória sem criar divs sobrepostas na tela
-                // e sem capturar nenhum overlay de carregamento!
                 const canvas = await html2canvas(originalElement, {
                     scale: 2,
                     useCORS: true,
@@ -958,14 +970,12 @@ ${signature}`;
                     scrollX: 0,
                     scrollY: 0,
                     onclone: (clonedDoc) => {
-                        // Garante que qualquer overlay esteja oculto no documento clonado
                         const overlay = clonedDoc.getElementById('aiLoadingOverlay');
                         if (overlay) overlay.style.display = 'none';
 
                         const clonedPaper = clonedDoc.getElementById('letterPaper');
                         if (clonedPaper) {
                             clonedPaper.classList.add('pdf-export-mode');
-                            // Isola o papel no topo esquerdo do documento clonado para captura limpa 794x1123
                             clonedDoc.body.innerHTML = '';
                             clonedDoc.body.style.margin = '0';
                             clonedDoc.body.style.padding = '0';
@@ -991,7 +1001,16 @@ ${signature}`;
                         unit: 'mm',
                         format: 'a4'
                     });
-                    pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, pageHeight);
+
+                    // Garante estritamente 1 única página no PDF final
+                    while (pdf.internal.getNumberOfPages() > 1) {
+                        pdf.deletePage(pdf.internal.getNumberOfPages());
+                    }
+
                     pdf.save(`Carta_de_Amor_${safeName}.pdf`);
                 } else {
                     window.print();
@@ -1000,6 +1019,7 @@ ${signature}`;
                 console.error("Erro ao gerar PDF:", err);
                 window.print();
             } finally {
+                isGeneratingPdf = false;
                 if (pdfBtn) {
                     pdfBtn.disabled = false;
                     pdfBtn.innerHTML = originalBtnHtml;
