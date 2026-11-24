@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Cartas de Amor - Amor em Palavras (Com IA Nativac)</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amber: {
+                            450: '#e5a93b',
+                            550: '#c78519',
+                        },
+                        rose: {
+                            950: '#4c0519',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        handwriting: ['Dancing Script', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- html2pdf Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* Textura do papel parchment e detalhes ornamentais */
+        .bg-parchment {
+            background-color: #fcf8f2;
+            background-image: radial-gradient(#e5d5c0 0.75px, transparent 0.75px), radial-gradient(#e5d5c0 0.75px, #fcf8f2 0.75px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+        }
+        
+        .wax-seal {
+            background: radial-gradient(circle at 35% 35%, #dc2626, #991b1b, #4c0519);
+            box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -3px 6px rgba(0, 0, 0, 0.6), 0 6px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        .dropcap::first-letter {
+            font-size: 3.5rem;
+            line-height: 0.8;
+            float: left;
+            padding-right: 0.6rem;
+            padding-top: 0.2rem;
+            color: #b45309;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+        }
+
+        /* Efeito de carregamento brilhante da IA */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 0.95; transform: scale(1.02); }
+        }
+        .ai-glow {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800 font-sans antialiased min-h-screen flex flex-col selection:bg-rose-900 selection:text-amber-200">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-30 bg-rose-950/95 backdrop-blur-md border-b-2 border-amber-500 text-amber-100 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-rose-700 flex items-center justify-center shadow-lg border border-amber-300">
+                    <i class="fa-solid fa-heart text-amber-100 text-xl animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif text-2xl sm:text-3xl font-bold tracking-wide bg-gradient-to-r from-amber-200 via-amber-400 to-rose-200 bg-clip-text text-transparent">
+                        Cartas de Amor
+                    </h1>
+                    <p class="text-xs text-rose-300 font-sans tracking-wider uppercase">Escriba Inteligente de Sentimentos</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <button onclick="toggleTailwindModal()" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-900/80 border border-amber-400/50 text-amber-200 hover:bg-amber-500 hover:text-rose-950 transition-all duration-300 shadow-sm cursor-pointer">
+                    <i class="fa-solid fa-code mr-1.5"></i>
+                    <span class="hidden sm:inline">Classes Tailwind</span>
+                    <span class="ml-1 px-1.5 py-0.5 rounded-full bg-amber-400 text-rose-950 text-[10px] font-bold">40+</span>
+                </button>
+
+                <button onclick="toggleReadmeModal()" class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-amber-500 text-rose-950 hover:bg-amber-400 transition-all duration-300 shadow-md cursor-pointer font-bold">
+                    <i class="fa-solid fa-file-lines mr-1.5"></i>
+                    <span>README GitHub</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-rose-950 via-rose-900 to-stone-900 text-amber-50 py-10 px-4 sm:px-6 lg:px-8 text-center border-b border-amber-500/30 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#f59e0b_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="relative max-w-4xl mx-auto space-y-3">
+            <span class="inline-block px-4 py-1 rounded-full border border-amber-400/40 bg-rose-900/60 text-amber-300 text-xs tracking-widest uppercase font-semibold shadow-inner">
+                <i class="fa-solid fa-wand-magic-sparkles mr-2 text-amber-400"></i>Gerador Automático com Inteligência Artificial
+            </span>
+            <h2 class="font-serif text-3xl sm:text-5xl font-bold leading-tight tracking-wide text-amber-100">
+                Sua História de Amor Transformada em Poesia Profunda
+            </h2>
+            <p class="text-rose-200/90 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Responda às perguntas sobre sua história e nossa Inteligência Artificial criará uma declaração única, emocionante e pronta para baixar em PDF formatado.
+            </p>
+        </div>
+    </section>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+            <!-- LEFT COLUMN: CONTROLS & INTERVIEW FORM (5 COLS) -->
+            <div class="lg:col-span-5 space-y-6">
+
+                <!-- STEP 1: MODEL SELECTION -->
+                <div class="bg-white rounded-2xl p-5 border border-rose-200 shadow-xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-rose-100 pb-3">
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-rose-950 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-amber-500 text-rose-950 text-sm flex items-center justify-center font-sans font-bold mr-2">1</span>
+                            Modelo do Papel
+                        </h3>
+                        <span class="text-xs font-medium text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">4 Estilos Elegantes</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Model 1 -->
+                        <button type="button" onclick="selectTemplate('classico')" id="btn-tmpl-classico" 
+                                class="tmpl-btn group relative p-3 rounded-xl border-2 border-amber-400 bg-amber-50/40 hover:border-amber-500 text-left transition-all duration-300 shadow-md ring-2 ring-amber-400/30">
+                            <div class="h-12 rounded bg-[#fcf8f2] border border-amber-300 p-2 flex flex-col justify-between mb-1.5 group-hover:scale-105 transition-transform">
+                                <div class="w-full h-1 bg-amber-400/60 rounded"></div>
+                                <div class="w-2/3 h-1 bg-rose-800/40 rounded"></div>
+                            </div>
+                            <span class="block text-xs font-bold text-stone-900">Clássico Real</span>
+                            <span class="block text-[10px] text-stone-500">Pergaminho & Selo</span>
+                        </button>
+
+                        <!-- Model 2 -->
+                        <button type="button" onclick="selectTemplate('carmim')" id="btn-tmpl-carmim" 
+                                class="tmpl-btn group relative p-3 rounded-xl border border-stone-200 bg-white hover:border-rose-400 text-left transition-all duration-300 shadow-sm">
+                            <div class="h-12 rounded bg-white border border-rose-200 overflow-hidden flex flex-col mb-1.5 group-hover:scale-105 transition-transform">
+                                <div class="h-2.5 bg-rose-900 w-full"></div>
+                                <div class="p-1 space-y-1">
+                                    <div class="w-3/4 h-1 bg-stone-300 rounded"></div>
+                                </div>
+                            </div>
+                            <span class="block text-xs font-bold text-stone-900">Paixão Carmim</span>
+                            <span class="block text-[10px] text-stone-500">Vinho & Dourado</span>
+                        </button>
+
+                        <!-- Model 3 -->
+                        <button type="button" onclick="selectTemplate('minimalista')" id="btn-tmpl-minimalista" 
+                                class="tmpl-btn group relative p-3 rounded-xl border border-stone-200 bg-white hover:border-amber-400 text-left transition-all duration-300 shadow-sm">
+                            <div class="h-12 rounded bg-stone-50 border border-stone-200 p-2 flex flex-col justify-between mb-1.5 group-hover:scale-105 transition-transform">
+                                <div class="w-3 h-3 text-amber-600 font-serif text-[10px] font-bold">✦</div>
+                                <div class="w-full border-t border-amber-300"></div>
+                            </div>
+                            <span class="block text-xs font-bold text-stone-900">Minimalista</span>
+                            <span class="block text-[10px] text-stone-500">Clean & Dourado</span>
+                        </button>
+
+                        <!-- Model 4 -->
+                        <button type="button" onclick="selectTemplate('poetico')" id="btn-tmpl-poetico" 
+                                class="tmpl-btn group relative p-3 rounded-xl border border-stone-200 bg-white hover:border-rose-300 text-left transition-all duration-300 shadow-sm">
+                            <div class="h-12 rounded bg-rose-50/50 border border-rose-200 p-1.5 flex flex-col justify-between mb-1.5 group-hover:scale-105 transition-transform">
+                                <div class="text-rose-400 text-[9px] text-center">✿ ✿</div>
+                                <div class="w-full h-1 bg-rose-300/40 rounded"></div>
+                            </div>
+                            <span class="block text-xs font-bold text-stone-900">Poético & Floral</span>
+                            <span class="block text-[10px] text-stone-500">Romântico Suave</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: INTERVIEW FORM -->
+                <div class="bg-white rounded-2xl p-5 border border-rose-200 shadow-xl space-y-4">
+                    <div class="flex items-center justify-between border-b border-rose-100 pb-3">
+                        <h3 class="font-serif text-lg sm:text-xl font-bold text-rose-950 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-amber-500 text-rose-950 text-sm flex items-center justify-center font-sans font-bold mr-2">2</span>
+                            Entrevista com o Declarante
+                        </h3>
+                        <span class="text-xs text-stone-400 italic">Preencha os detalhes</span>
+                    </div>
+
+                    <form id="loveForm" onsubmit="event.preventDefault();" class="space-y-4">
+                        <!-- Names Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Seu Nome (Declarante)</label>
+                                <input type="text" id="authorName" placeholder="Ex: Gabriel" value="Gabriel"
+                                       class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Pessoa Amada</label>
+                                <input type="text" id="loverName" placeholder="Ex: Beatriz" value="Beatriz"
+                                       class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- Tone Selector -->
+                        <div>
+                            <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Tom da Declaração</label>
+                            <select id="letterTone" class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none bg-white transition-all">
+                                <option value="Romântico Clássico, Poético e Elegante">Romântico Clássico & Elegante</option>
+                                <option value="Profundamente Apaixonado, Intenso e Emocionante">Apaixonado, Intenso & Profundo</option>
+                                <option value="Poético, Lírico e Suave como um Poema">Poético, Lírico & Suave</option>
+                                <option value="Carinhoso, Leve, Divertido e Fofo">Carinhoso, Leve & Divertido</option>
+                            </select>
+                        </div>
+
+                        <!-- How They Met -->
+                        <div>
+                            <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Como ou quando se conheceram?</label>
+                            <input type="text" id="howWeMet" placeholder="Ex: Numa tarde ensolarada de primavera em um café..." value="Numa tarde ensolarada de primavera em um café central"
+                                   class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">
+                        </div>
+
+                        <!-- Feel Close vs Far Grid -->
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">O que você sente quando está PERTO dela(e)?</label>
+                                <textarea id="feelClose" rows="2" placeholder="Ex: Paz absoluta, segurança e uma felicidade inexplicável..." 
+                                          class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">Paz imediata, segurança e uma alegria inexplicável que ilumina qualquer dia.</textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">O que você sente quando está LONGE?</label>
+                                <textarea id="feelFar" rows="2" placeholder="Ex: Uma saudade apertada e o desejo constante de compartilhar o dia..." 
+                                          class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">Uma saudade apertada no peito e a vontade constante de te abraçar.</textarea>
+                            </div>
+                        </div>
+
+                        <!-- Frequency of thoughts -->
+                        <div>
+                            <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Com que frequência você pensa nela(e)?</label>
+                            <input type="text" id="thoughtFreq" placeholder="Ex: A todo instante, do amanhecer ao deitar..." value="Em quase todos os minutos do meu dia, a todo instante"
+                                   class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">
+                        </div>
+
+                        <!-- Specific Memory -->
+                        <div>
+                            <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Um momento específico / marcante que viveram</label>
+                            <textarea id="specialMoment" rows="2" placeholder="Ex: Aquela viagem em que ficamos conversando até de madrugada sob as estrelas..." 
+                                      class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">Aquela viagem no fim de semana em que ficamos conversando até de madrugada vendo as estrelas.</textarea>
+                        </div>
+
+                        <!-- Happy Memories & Promise -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Memórias Felizes</label>
+                                <input type="text" id="happyMemories" placeholder="Ex: Nossos risos espontâneos" value="Nossos risos espontâneos e abraços demorados"
+                                       class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-rose-950 uppercase tracking-wider mb-1">Promessa para o Futuro</label>
+                                <input type="text" id="futurePromise" placeholder="Ex: Construir uma vida linda" value="Continuar sendo seu porto seguro e amar você pra sempre"
+                                       class="w-full px-3 py-2 text-sm rounded-xl border border-stone-300 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <!-- AUTOMATIC AI GENERATION BUTTON -->
+                        <div class="pt-2">
+                            <button type="button" onclick="generateLetterWithAI()" id="btnGenerateAI"
+                                    class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-rose-900 via-rose-800 to-amber-600 hover:from-rose-950 hover:to-amber-700 text-amber-100 shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 border border-amber-400/40 cursor-pointer">
+                                <i class="fa-solid fa-sparkles text-amber-300 animate-spin text-base"></i>
+                                <span class="tracking-wide">Gerar Carta com IA Automática</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: LIVE PREVIEW, AI REFINER & DOWNLOAD (7 COLS) -->
+            <div class="lg:col-span-7 space-y-5">
+
+                <!-- TOOLBAR & QUICK REWRITE WITH AI -->
+                <div class="bg-white rounded-2xl p-4 border border-rose-200 shadow-md space-y-3">
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-stone-100 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-xs font-bold text-stone-700 uppercase tracking-wider">Visualização Interativa</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <button onclick="copyLetterText()" title="Copiar Texto" class="px-3 py-1.5 rounded-lg bg-stone-100 text-stone-700 hover:bg-amber-100 hover:text-amber-900 text-xs font-semibold transition-all border border-stone-200 flex items-center space-x-1 cursor-pointer">
+                                <i class="fa-regular fa-copy"></i>
+                                <span class="hidden sm:inline">Copiar Texto</span>
+                            </button>
+
+                            <button onclick="downloadPDF()" title="Baixar PDF Formatado" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-rose-950 font-bold text-xs shadow transition-all flex items-center space-x-1.5 cursor-pointer border border-amber-300">
+                                <i class="fa-solid fa-file-pdf text-rose-900"></i>
+                                <span>Baixar PDF</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- AI REWRITE QUICK BUTTONS -->
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="text-[11px] font-bold text-rose-900 uppercase tracking-wider flex items-center">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-500 mr-1.5"></i> Refinar com IA:
+                        </span>
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <button onclick="refineLetterWithAI('poetico')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                                ✨ Mais Poética
+                            </button>
+                            <button onclick="refineLetterWithAI('intenso')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                                🔥 Mais Intensa
+                            </button>
+                            <button onclick="refineLetterWithAI('curto')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                                📜 Mais Curta
+                            </button>
+                            <button onclick="refineLetterWithAI('polido')" class="px-2.5 py-1 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-900 border border-rose-200 text-[11px] font-medium transition-all">
+                                🖋️ Polir Gramática
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LETTER CANVAS CONTAINER -->
+                <div class="relative">
+
+                    <!-- Editable Note Banner -->
+                    <div class="mb-2 text-center text-xs text-stone-500 italic flex items-center justify-center gap-1">
+                        <i class="fa-regular fa-pen-to-square text-amber-600"></i>
+                        <span>Você pode clicar no corpo do papel para alterar qualquer frase manualmente.</span>
+                    </div>
+
+                    <!-- LOADING OVERLAY (DURING IA GENERATION) -->
+                    <div id="aiLoadingOverlay" class="absolute inset-0 bg-rose-950/75 backdrop-blur-sm rounded-2xl z-20 flex flex-col items-center justify-center p-6 text-amber-100 hidden transition-all">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-rose-600 flex items-center justify-center text-rose-950 text-2xl shadow-2xl ai-glow mb-4 border-2 border-amber-300">
+                            <i class="fa-solid fa-heart animate-ping"></i>
+                        </div>
+                        <h4 class="font-serif text-2xl font-bold text-amber-200 mb-1">Escriba IA em Ação...</h4>
+                        <p class="text-xs text-rose-200 text-center max-w-xs leading-relaxed" id="aiLoadingText">
+                            Transformando suas memórias, sorrisos e sentimentos em uma declaração emocionante...
+                        </p>
+                    </div>
+
+                    <!-- THE LETTER PAPER -->
+                    <div id="letterPaper" class="min-h-[650px] p-8 sm:p-12 rounded-2xl shadow-2xl transition-all duration-500 bg-parchment relative overflow-hidden border-4 double border-amber-500">
+                        
+                        <!-- DYNAMIC CONTENT -->
+                        <div id="letterInnerContainer" class="space-y-6 font-serif relative z-10">
+
+                            <!-- HEADER / SALUTATION -->
+                            <div class="border-b border-amber-400/40 pb-4 flex justify-between items-end">
+                                <div>
+                                    <p class="text-xs text-amber-800 uppercase tracking-widest font-sans font-bold" id="paperDate">24 de Novembro</p>
+                                    <h2 class="text-2xl sm:text-4xl font-bold text-rose-950 mt-1" id="paperSalutation">Minha Querida Beatriz,</h2>
+                                </div>
+                                <div id="paperBadge">
+                                    <div class="w-12 h-12 rounded-full wax-seal flex items-center justify-center text-amber-200 shadow-md">
+                                        <i class="fa-solid fa-heart text-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- LETTER BODY (EDITABLE) -->
+                            <div id="paperBody" contenteditable="true" class="text-stone-800 text-base sm:text-lg leading-relaxed space-y-4 focus:outline-none focus:ring-1 focus:ring-amber-300 rounded p-1 dropcap">
+                                <p>
+                                    Escrevo esta carta com o coração transbordando de sentimentos valiosos. Desde que nossas vidas se cruzaram numa tarde ensolarada de primavera em um café central, soube que havia algo profundamente especial acontecendo em meu destino.
+                                </p>
+                                <p>
+                                    Estar ao seu lado me traz uma paz imediata, segurança e uma alegria inexplicável que ilumina qualquer dia. Em quase todos os minutos do meu dia, a todo instante, meu pensamento voa livre até você. E quando a distância nos separa momentaneamente, sinto uma saudade apertada no peito e a vontade constante de te abraçar.
+                                </p>
+                                <p>
+                                    Guardo com carinho infinito aquele momento inesquecível: aquela viagem no fim de semana em que ficamos conversando até de madrugada vendo as estrelas. Memórias como essa, somadas aos nossos risos espontâneos e abraços demorados, fortalecem tudo o que construímos juntos.
+                                </p>
+                                <p>
+                                    Meu maior desejo e minha promessa para o nosso futuro é continuar sendo seu porto seguro e amar você pra sempre.
+                                </p>
+                            </div>
+
+                            <!-- FOOTER / SIGNATURE -->
+                            <div class="pt-8 border-t border-amber-400/40 flex flex-col items-end space-y-1">
+                                <p class="text-sm italic text-stone-600">Com todo o meu amor e carinho,</p>
+                                <p class="font-handwriting text-3xl text-rose-900 font-bold tracking-wide" id="paperSignature">Gabriel</p>
+                            </div>
+                        </div>
+
+                        <!-- DECORATIVE BACKGROUND ELEMENTS -->
+                        <div id="bgDecorations" class="pointer-events-none">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-amber-400/20 to-transparent rounded-bl-full"></div>
+                            <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-rose-900/10 to-transparent rounded-tr-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- TAILWIND CSS CLASSES MODAL -->
+    <div id="tailwindModal" class="fixed inset-0 z-50 bg-rose-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[85vh] flex flex-col p-6 sm:p-8 shadow-2xl border-2 border-amber-400 relative">
+            
+            <div class="flex items-center justify-between border-b border-rose-100 pb-4 mb-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-rose-950 shadow-md">
+                        <i class="fa-solid fa-code text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-rose-950">Classes Tailwind CSS Utilizadas</h3>
+                        <p class="text-xs text-stone-500">Documentação das +40 classes para a entrega da atividade acadêmica</p>
+                    </div>
+                </div>
+                <button onclick="toggleTailwindModal()" class="text-stone-400 hover:text-rose-900 text-2xl font-bold w-8 h-8 rounded-full flex items-center justify-center hover:bg-rose-50">
+                    &times;
+                </button>
+            </div>
+
+            <!-- SCROLLABLE LIST OF CLASSES -->
+            <div class="overflow-y-auto flex-grow space-y-5 pr-2">
+                <div>
+                    <h4 class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-2 flex items-center">
+                        <i class="fa-solid fa-palette mr-2"></i>1. Cores e Planos de Fundo (Cores Quentes)
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-rose-950</code> - Vinho escuro nos cabeçalhos e fundos</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-rose-900</code> - Vermelho carmim intenso para botões</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-amber-500</code> - Dourado primário vibrante</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-amber-50</code> - Fundo off-white com toque amarelado</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-stone-100</code> - Tom neutro acolhedor de fundo</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-white</code> - Fundo puro de cartões e modais</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">text-amber-100 / text-amber-300</code> - Tipografia tom dourado reluzente</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">text-rose-950</code> - Tipografia escura de alto contraste</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">bg-gradient-to-r</code> - Gradiente linear elegante</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-2 flex items-center">
+                        <i class="fa-solid fa-font mr-2"></i>2. Tipografia e Estilização
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">font-serif</code> - Fonte serifada clássica romântica</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">font-sans</code> - Fonte limpa moderna de interface</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">font-handwriting</code> - Fonte estilo caligrafia de assinatura</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">text-xs / text-sm / text-base / text-2xl / text-5xl</code> - Escala tipográfica</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">font-bold / font-semibold</code> - Pesos de fonte</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">italic</code> - Estilo itálico romântico</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">tracking-wide / tracking-widest</code> - Espaçamento entre letras</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">leading-relaxed / leading-tight</code> - Entrelinhas para leitura confortável</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-2 flex items-center">
+                        <i class="fa-solid fa-ruler-combined mr-2"></i>3. Espaçamentos, Dimensões e Bordas
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">p-3 / p-5 / p-8 / p-12</code> - Padding em múltiplos níveis</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">space-y-3 / space-y-4 / space-y-6</code> - Espaçamentos verticais encadeados</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">w-full / max-w-4xl / max-w-7xl</code> - Dimensões e contêineres</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">rounded-xl / rounded-2xl / rounded-full</code> - Arredondamentos de bordas</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">border / border-2 / border-amber-400</code> - Estilização de bordas douradas</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">shadow-md / shadow-xl / shadow-2xl</code> - Sombras de profundidade</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs font-bold text-amber-700 uppercase tracking-widest mb-2 flex items-center">
+                        <i class="fa-solid fa-table-cells mr-2"></i>4. Flexbox, Grid e Responsividade
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">flex / flex-col / flex-wrap</code> - Disposição flexível dos elementos</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">items-center / justify-between / justify-center</code> - Alinhamentos flex</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">grid / grid-cols-1 / grid-cols-2 / lg:grid-cols-12</code> - Grid responsivo de colunas</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">sm: / md: / lg:</code> - Modificadores de tela (mobile-first)</div>
+                        <div class="p-2 bg-stone-50 rounded border border-stone-200"><code class="font-bold text-rose-900">backdrop-blur-md / animate-pulse</code> - Efeitos visuais modernos</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-rose-100 flex justify-end">
+                <button onclick="toggleTailwindModal()" class="px-5 py-2 bg-rose-900 text-amber-100 font-bold text-xs rounded-xl shadow hover:bg-rose-950 transition-colors">
+                    Fechar Documentação
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GITHUB README MODAL -->
+    <div id="readmeModal" class="fixed inset-0 z-50 bg-rose-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden transition-opacity">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[85vh] flex flex-col p-6 sm:p-8 shadow-2xl border-2 border-amber-400 relative">
+            <div class="flex items-center justify-between border-b border-rose-100 pb-3 mb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-rose-950 shadow-md">
+                        <i class="fa-solid fa-file-code text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif text-2xl font-bold text-rose-950">README.md Pronto para o Repositório</h3>
+                        <p class="text-xs text-stone-500">Documentação completa formatada em Markdown para entrega acadêmica</p>
+                    </div>
+                </div>
+                <button onclick="toggleReadmeModal()" class="text-stone-400 hover:text-rose-900 text-2xl font-bold w-8 h-8 rounded-full flex items-center justify-center hover:bg-rose-50">
+                    &times;
+                </button>
+            </div>
+
+            <textarea id="readmeText" readonly class="w-full flex-grow p-4 text-xs font-mono bg-stone-900 text-amber-200 rounded-xl border border-stone-700 outline-none leading-relaxed select-all"></textarea>
+
+            <div class="pt-4 border-t border-rose-100 flex items-center justify-between gap-3">
+                <span class="text-xs text-stone-500">Copie e cole no arquivo <code>README.md</code> do seu GitHub</span>
+                <button onclick="copyReadmeText()" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-rose-950 font-bold text-xs rounded-xl shadow transition-all flex items-center space-x-2 border border-amber-300 cursor-pointer">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Copiar README.md</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-rose-950 text-amber-200/80 border-t-2 border-amber-500 py-8 px-4 sm:px-6 lg:px-8 mt-12 text-center text-sm font-sans">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <div class="flex justify-center items-center space-x-2 text-rose-300">
+                <i class="fa-solid fa-heart text-amber-400"></i>
+                <span class="font-serif italic text-base">Amor transformado em palavras e memórias eternas</span>
+                <i class="fa-solid fa-heart text-amber-400"></i>
+            </div>
+            <p class="text-amber-100/90 font-semibold tracking-wide">
+                Desenvolvido por <span class="text-amber-400 font-bold underline decoration-amber-500 underline-offset-4">Ryan Amorim Carvalho</span>
+            </p>
+            <p class="text-xs text-rose-400">
+                &copy; 2026 Escriba do Amor - Aplicação Web com IA Nativac e Tailwind CSS
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC WITH AUTOMATIC GEMINI IA INTEGRATION -->
+    <script>
+        // API Configuration (Gemini API for Web Runtime)
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        let currentTemplate = 'classico';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const today = new Date().toLocaleDateString('pt-BR', options);
+            document.getElementById('paperDate').innerText = today;
+            generateReadmeMarkdown();
+        });
+
+        // 1. SELECT TEMPLATE
+        function selectTemplate(templateId) {
+            currentTemplate = templateId;
+            const paper = document.getElementById('letterPaper');
+            const paperBody = document.getElementById('paperBody');
+            
+            document.querySelectorAll('.tmpl-btn').forEach(btn => {
+                btn.classList.remove('border-amber-400', 'bg-amber-50/40', 'ring-2', 'ring-amber-400/30');
+                btn.classList.add('border-stone-200', 'bg-white');
+            });
+
+            const activeBtn = document.getElementById(`btn-tmpl-${templateId}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('border-stone-200', 'bg-white');
+                activeBtn.classList.add('border-amber-400', 'bg-amber-50/40', 'ring-2', 'ring-amber-400/30');
+            }
+
+            if (templateId === 'classico') {
+                paper.className = "min-h-[650px] p-8 sm:p-12 rounded-2xl shadow-2xl transition-all duration-500 bg-parchment relative overflow-hidden border-4 double border-amber-500";
+                paperBody.className = "text-stone-800 text-base sm:text-lg leading-relaxed space-y-4 focus:outline-none focus:ring-1 focus:ring-amber-300 rounded p-1 dropcap";
+                document.getElementById('paperBadge').innerHTML = `
+                    <div class="w-12 h-12 rounded-full wax-seal flex items-center justify-center text-amber-200 shadow-md">
+                        <i class="fa-solid fa-heart text-lg"></i>
+                    </div>`;
+            } else if (templateId === 'carmim') {
+                paper.className = "min-h-[650px] p-8 sm:p-12 rounded-2xl shadow-2xl transition-all duration-500 bg-white relative overflow-hidden border-t-8 border-rose-900 border-b-4 border-b-amber-500";
+                paperBody.className = "text-rose-950 text-base sm:text-lg leading-relaxed space-y-4 focus:outline-none focus:ring-1 focus:ring-rose-300 rounded p-1 font-serif";
+                document.getElementById('paperBadge').innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-900 to-rose-950 flex items-center justify-center text-amber-300 shadow">
+                        <i class="fa-solid fa-crown text-base"></i>
+                    </div>`;
+            } else if (templateId === 'minimalista') {
+                paper.className = "min-h-[650px] p-8 sm:p-12 rounded-2xl shadow-2xl transition-all duration-500 bg-stone-50 relative overflow-hidden border border-amber-300/80";
+                paperBody.className = "text-stone-800 text-base sm:text-lg leading-relaxed space-y-4 focus:outline-none focus:ring-1 focus:ring-amber-200 rounded p-1 dropcap font-serif tracking-wide";
+                document.getElementById('paperBadge').innerHTML = `
+                    <div class="text-amber-600 font-serif italic text-xl font-bold tracking-widest border-b border-amber-400 pb-1">
+                        ✦ ✦ ✦
+                    </div>`;
+            } else if (templateId === 'poetico') {
+                paper.className = "min-h-[650px] p-8 sm:p-12 rounded-2xl shadow-2xl transition-all duration-500 bg-rose-50/40 relative overflow-hidden border-2 border-rose-200";
+                paperBody.className = "text-stone-800 text-base sm:text-lg leading-relaxed space-y-4 focus:outline-none focus:ring-1 focus:ring-rose-200 rounded p-1 font-serif italic";
+                document.getElementById('paperBadge').innerHTML = `
+                    <div class="text-rose-400 text-lg">
+                        ✿ ❀ ✿
+                    </div>`;
+            }
+        }
+
+        // 2. AUTOMATIC GEMINI IA LETTER GENERATOR
+        async function generateLetterWithAI() {
+            const author = document.getElementById('authorName').value.trim() || "Gabriel";
+            const lover = document.getElementById('loverName').value.trim() || "Beatriz";
+            const tone = document.getElementById('letterTone').value;
+            const met = document.getElementById('howWeMet').value.trim();
+            const feelClose = document.getElementById('feelClose').value.trim();
+            const feelFar = document.getElementById('feelFar').value.trim();
+            const thoughtFreq = document.getElementById('thoughtFreq').value.trim();
+            const specialMoment = document.getElementById('specialMoment').value.trim();
+            const happyMemories = document.getElementById('happyMemories').value.trim();
+            const promise = document.getElementById('futurePromise').value.trim();
+
+            // Update Header & Signature
+            document.getElementById('paperSalutation').innerText = `Minha Querida ${lover},`;
+            document.getElementById('paperSignature').innerText = author;
+
+            // Show Loading Overlay
+            showAiLoading("O escriba IA está conectando os sentimentos e escrevendo a carta...");
+
+            const systemPrompt = "Você é um poeta romântico e escritor apaixonado. Escreva uma linda carta de amor em português dividida rigorosamente em 4 parágrafos envolventes. Não inclua saudações iniciais nem assinaturas no texto (elas já existem no papel). Retorne APENAS os 4 parágrafos separados por duas quebras de linha.";
+            
+            const userPrompt = `Escreva uma carta de amor para ${lover}, escrita por ${author}.
+Tom desejado: ${tone}.
+Como se conheceram: ${met}.
+O que sinto quando estou perto: ${feelClose}.
+O que sinto quando estou longe: ${feelFar}.
+Frequência com que penso nela: ${thoughtFreq}.
+Momento marcante juntos: ${specialMoment}.
+Memórias felizes: ${happyMemories}.
+Promessa para o futuro: ${promise}.`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userPrompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (aiText) {
+                    renderTextToPaper(aiText);
+                } else {
+                    fallbackLocalGeneration(author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise);
+                }
+            } catch (error) {
+                console.warn("API indisponível no momento, utilizando motor inteligente local:", error);
+                fallbackLocalGeneration(author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise);
+            } finally {
+                hideAiLoading();
+            }
+        }
+
+        // 3. REFINING / REWRITING WITH IA (1-CLICK)
+        async function refineLetterWithAI(actionType) {
+            const currentBody = document.getElementById('paperBody').innerText;
+            const lover = document.getElementById('loverName').value.trim() || "Pessoa Amada";
+
+            showAiLoading(`Ajustando o tom da carta (${actionType})...`);
+
+            let instruction = "";
+            if (actionType === 'poetico') instruction = "Reescreva a carta tornando-a extremamente poética, lírica, usando metáforas sutis de amor e beleza.";
+            else if (actionType === 'intenso') instruction = "Reescreva a carta tornando-a muito mais intensa, apaixonada, profunda e ardente.";
+            else if (actionType === 'curto') instruction = "Resuma a carta para torná-la mais concisa, objetiva e direta, mantendo a emoção máxima em menos texto.";
+            else if (actionType === 'polido') instruction = "Corrija pequenos erros gramaticais e aprimore o estilo de escrita mantendo o mesmo conteúdo.";
+
+            const systemPrompt = "Você é um revisor e poeta romântico profissional. Reescreva o texto da carta de amor fornecido seguindo as instruções. Retorne exatamente 3 ou 4 parágrafos. Não inclua saudações nem assinaturas.";
+            const userPrompt = `${instruction}\n\nTexto atual da carta:\n${currentBody}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userPrompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (aiText) {
+                    renderTextToPaper(aiText);
+                }
+            } catch (error) {
+                console.error("Erro ao refinar:", error);
+            } finally {
+                hideAiLoading();
+            }
+        }
+
+        // Render formatted text to paper
+        function renderTextToPaper(rawText) {
+            const paragraphs = rawText.split('\n\n').filter(p => p.trim() !== '');
+            let html = '';
+            paragraphs.forEach((p, index) => {
+                const cleanP = p.replace(/^["']|["']$/g, '').trim();
+                if (index === 0) {
+                    html += `<p class="dropcap">${cleanP}</p>`;
+                } else {
+                    html += `<p>${cleanP}</p>`;
+                }
+            });
+            document.getElementById('paperBody').innerHTML = html;
+        }
+
+        // Fallback generator algorithm
+        function fallbackLocalGeneration(author, lover, tone, met, feelClose, feelFar, thoughtFreq, specialMoment, happyMemories, promise) {
+            const p1 = `Escrevo esta carta com o coração repleto de afeto. Desde que nossas vidas se cruzaram em ${met || "um momento especial"}, soube que você traria um brilho único para os meus dias.`;
+            const p2 = `Estar ao seu lado me faz sentir ${feelClose || "uma paz indescritível"}. Pensar em você acontece ${thoughtFreq || "a todo instante"}, e quando a distância nos separa, carrego comigo ${feelFar || "uma saudade imensa"}.`;
+            const p3 = `Guardo como um tesouro inestimável aquele dia em que ${specialMoment || "compartilhamos sorrisos únicos"}. Lembranças como essa, somadas a ${happyMemories || "nossos momentos de alegria"}, mostram a força do que sentimos.`;
+            const p4 = `Para o nosso futuro, minha promessa mais verdadeira é ${promise || "estar sempre ao seu lado te amando"}.`;
+
+            renderTextToPaper(`${p1}\n\n${p2}\n\n${p3}\n\n${p4}`);
+        }
+
+        // UI Helpers
+        function showAiLoading(text) {
+            document.getElementById('aiLoadingText').innerText = text;
+            document.getElementById('aiLoadingOverlay').classList.remove('hidden');
+        }
+
+        function hideAiLoading() {
+            document.getElementById('aiLoadingOverlay').classList.add('hidden');
+        }
+
+        function copyLetterText() {
+            const salutation = document.getElementById('paperSalutation').innerText;
+            const body = document.getElementById('paperBody').innerText;
+            const signature = document.getElementById('paperSignature').innerText;
+            const fullText = `${salutation}\n\n${body}\n\nCom amor,\n${signature}`;
+
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = fullText;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            alert('O texto da carta foi copiado para a área de transferência!');
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('letterPaper');
+            const loverName = document.getElementById('loverName').value.trim() || "Carta_de_Amor";
+            
+            const opt = {
+                margin:       [0.4, 0.4, 0.4, 0.4],
+                filename:     `Carta_de_Amor_${loverName}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().catch(() => window.print());
+        }
+
+        function toggleTailwindModal() {
+            document.getElementById('tailwindModal').classList.toggle('hidden');
+        }
+
+        function toggleReadmeModal() {
+            document.getElementById('readmeModal').classList.toggle('hidden');
+        }
+
+        function generateReadmeMarkdown() {
+            const readme = `# 💌 Gerador de Cartas de Amor com IA Automática
+
+> Projeto desenvolvido como atividade prática de desenvolvimento Web responsivo utilizando **Tailwind CSS** e **Inteligência Artificial Nativa**.
+
+## 👤 Autor
+- **Nome:** Ryan Amorim Carvalho
+- **Tema:** Site Gerador de Cartas de Amor (Cores quentes: vermelho carmim, dourado, off-white)
+
+---
+
+## 🚀 Funcionalidades da Aplicação
+1. **Geração por IA 100% Automática (Gemini API):** O próprio site lê a entrevista guiada e gera uma declaração emocionante e personalizada em segundos.
+2. **Refinamento em 1 Clique com IA:** Botões de ação rápida para deixar a carta mais poética, mais intensa, mais curta ou aprimorar a gramática sem sair da página.
+3. **4 Modelos Elegantes de Carta:** Clássico Real (Pergaminho com Selo de Cera), Paixão Carmim (Vinho & Dourado), Minimalista e Poético & Floral.
+4. **Entrevista Guiada com o Declarante:** Coleta de momentos, sentimentos de distância/proximidade, memórias felizes e promessas de futuro.
+5. **Edição Direta no Papel:** Corpo da carta totalmente editável (\`contenteditable="true"\`).
+6. **Download em PDF:** Exportação de alta fidelidade visual via \`html2pdf.js\`.
+
+---
+
+## 🎨 Tabela das Classes Tailwind CSS Utilizadas (Mais de 40 classes)
+
+| Categoria | Classe Tailwind | Função no Projeto |
+| :--- | :--- | :--- |
+| **Cores de Fundo** | \`bg-rose-950\` | Fundo vinho escuro no cabeçalho e modais |
+| **Cores de Fundo** | \`bg-rose-900\` | Fundo vermelho carmim para botões primários |
+| **Cores de Fundo** | \`bg-amber-500\` | Dourado vibrante para badges e botões de ação |
+| **Cores de Fundo** | \`bg-amber-50\` | Tom off-white levemente dourado para botões ativos |
+| **Cores de Fundo** | \`bg-stone-100\` | Fundo neutro suave da página principal |
+| **Cores de Fundo** | \`bg-white\` | Fundo limpo de cartões e áreas editáveis |
+| **Cores de Texto** | \`text-amber-100\` | Texto dourado claro em áreas escuras |
+| **Cores de Texto** | \`text-rose-950\` | Texto carmim profundo em títulos principais |
+| **Cores de Texto** | \`text-stone-800\` | Cor do corpo da carta para legibilidade |
+| **Gradientes** | \`bg-gradient-to-r\` | Gradientes lineares horizontais de botões |
+| **Tipografia** | \`font-serif\` | Aplica fonte serifada elegante de época |
+| **Tipografia** | \`font-sans\` | Aplica fonte limpa e moderna na interface |
+| **Tipografia** | \`font-handwriting\` | Fonte estilo assinatura caligráfica |
+| **Tipografia** | \`text-xs / text-sm / text-base\` | Escala de tamanhos corporais |
+| **Tipografia** | \`text-2xl / text-3xl / text-5xl\` | Escala de títulos destacados |
+| **Tipografia** | \`font-bold / font-semibold\` | Pesos de fonte destacados |
+| **Tipografia** | \`italic\` | Estilo itálico para saudações e notas |
+| **Tipografia** | \`tracking-widest\` | Aumento do espaçamento entre letras em caixa alta |
+| **Tipografia** | \`leading-relaxed\` | Entrelinhas fluido para leitura de cartas |
+| **Espaçamentos** | \`p-3 / p-5 / p-8 / p-12\` | Preenchimento interno (Padding) |
+| **Espaçamentos** | \`px-4 / py-2 / py-3\` | Padding horizontal e vertical em botões |
+| **Espaçamentos** | \`space-y-3 / space-y-6\` | Espaçamento vertical entre elementos |
+| **Espaçamentos** | \`gap-3 / gap-8\` | Espaçamento entre colunas de grid/flex |
+| **Dimensões** | \`w-full / max-w-4xl / max-w-7xl\` | Larguras e contêineres responsivos |
+| **Dimensões** | \`min-h-screen / min-h-[650px]\` | Alturas mínimas de tela e papel |
+| **Bordas** | \`border / border-2 / border-4\` | Espessura de contornos visuais |
+| **Bordas** | \`border-amber-400 / border-rose-200\`| Cores ornamentais de borda |
+| **Bordas** | \`rounded-xl / rounded-2xl / rounded-full\`| Bordas suavemente arredondadas |
+| **Sombras** | \`shadow-md / shadow-xl / shadow-2xl\` | Efeitos de profundidade em cartões e papel |
+| **Sombras** | \`ring-2 / ring-amber-400/30\` | Anel de foco no modelo selecionado |
+| **Flexbox** | \`flex / flex-col / flex-wrap\` | Disposição flexível |
+| **Flexbox** | \`items-center / justify-between\` | Alinhamento de eixos |
+| **Grid** | \`grid / grid-cols-1 / grid-cols-2 / lg:grid-cols-12\` | Sistema de colunas |
+| **Posicionamento**| \`relative / absolute / fixed / sticky\` | Modos de posicionamento |
+| **Posicionamento**| \`top-0 / inset-0 / z-10 / z-30 / z-50\` | Fixação e camadas (z-index) |
+| **Responsivo** | \`sm: / md: / lg:\` | Breakpoints adaptativos mobile-first |
+| **Interatividade**| \`hover:scale-105 / transition-all\` | Micro-interações ao passar o mouse |
+| **Efeitos** | \`backdrop-blur-md / animate-pulse\` | Efeitos visuais contemporâneos |
+
+---
+
+## 📌 Assinatura
+Desenvolvido por **Ryan Amorim Carvalho**
+`;
+            document.getElementById('readmeText').value = readme;
+        }
+
+        function copyReadmeText() {
+            const textarea = document.getElementById('readmeText');
+            textarea.select();
+            document.execCommand('copy');
+            alert('Conteúdo do README.md copiado com sucesso!');
+        }
+    </script>
+</body>
+</html>
