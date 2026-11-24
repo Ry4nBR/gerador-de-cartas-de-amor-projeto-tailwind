@@ -45,11 +45,35 @@
 
 ### 📷 4.2 Prints do Código Fonte
 
-| Estrutura HTML e Estilização Tailwind CSS | Motor Inteligente Local em JavaScript |
-| :---: | :---: |
-| ![Print Codigo HTML](./assets/print-codigo-html.png) | ![Print Codigo JS](./assets/print-codigo-js.png) |
+## ⚙️ Motor de Composição Romântica em JavaScript Puro
+
+Para garantir que a aplicação funcione de maneira instantânea, gratuita e 100% *client-side* (sem necessidade de chaves de API ou servidores externos), foi desenvolvido um motor próprio de composição textual em **JavaScript (ES6+)** por meio da função `composeRomanticLetter()`:
+
+![Motor de Composição em JavaScript](./assets/print-codigo-js.png)
+
+### 🔍 Como o Algoritmo Funciona
+
+* **Desestruturação e Tratamento de Dados:** A função recebe o objeto `data` contendo as respostas da entrevista (`lover`, `met`, `feelClose`, `feelFar`, `thoughtFreq`, `specialMoment`, `happyMemories` e `promise`) e utiliza funções auxiliares como `cleanFragment()` para higienizar a pontuação e evitar repetições de pontos finais.
+* **Adaptação Dinâmica de Estilo (`activeStyle`):** Por meio de estruturas condicionais, o algoritmo reorganiza a estrutura narrativa, o vocabulário e a quantidade de parágrafos conforme o tom escolhido pelo usuário (como *Curto*, *Poético/Lírico*, *Apaixonado/Intenso*, *Carinhoso* ou *Clássico*).
+* **Variação Natural de Aberturas (`pickRandom`):** Utiliza um seletor aleatório sobre arranjos de frases introdutórias (`openings`), garantindo que cada geração produza uma abertura única e orgânica.
+* **Fallbacks Inteligentes:** Caso o usuário deixe algum campo opcional em branco, operadores ternários e valores padrão (`||`) preenchem as lacunas com expressões românticas coerentes, assegurando que a carta final sempre mantenha fluidez literária.
 
 ---
+
+## 📸 Estrutura HTML e Estilização com Tailwind CSS
+
+O trecho de código abaixo demonstra a organização semântica em **HTML5** combinada com a abordagem *utility-first* e responsiva do **Tailwind CSS** na construção da interface:
+
+!![Print Codigo HTML](./assets/print-codigo-html.png)
+
+### 🔍 Destaques Técnicos do Trecho
+
+* **Semântica e Hierarquia HTML5:** Utilização de tags estruturais como `<section>` (seção de destaque *Hero*), `<main>` (contêiner principal da aplicação), `<h2>`, `<h3>`, `<p>` e `<span>`, garantindo acessibilidade e clareza na leitura do código.
+* **Paleta de Cores Quentes e Gradientes:** Aplicação de tons em vermelho carmim e vinho (`from-rose-950`, `via-rose-900`, `text-rose-950`), dourado (`text-amber-100`, `bg-amber-500`, `border-amber-400/40`) e tons neutros acolhedores (`to-stone-900`, `bg-white`), criando uma identidade visual romântica e sofisticada.
+* **Layout Responsivo (Grid e Flexbox):**
+  * Uso de **CSS Grid** (`grid grid-cols-1 lg:grid-cols-12 gap-8`) para organizar a tela em coluna única em dispositivos móveis e dividi-la proporcionalmente (`lg:col-span-5`) em telas maiores.
+  * Uso de **Flexbox** (`flex items-center justify-between`, `flex-grow`) para alinhamento preciso de títulos, badges e cartões.
+* **Tipografia e Espaçamento:** Combinação de fontes serifadas (`font-serif`) e modernas (`font-sans`) com escalas responsivas (`text-3xl sm:text-5xl`), espaçamentos internos padronizados (`px-4 sm:px-6 lg:px-8`, `p-5`, `space-y-6`) e acabamento visual com bordas arredondadas (`rounded-2xl`, `rounded-full`) e sombras (`shadow-xl`).
 
 ## 🎨 5. Lista das Classes Tailwind CSS Utilizadas e Suas Funções
 
@@ -113,7 +137,7 @@ Abaixo estão listadas **mais de 40 classes do Tailwind CSS** empregadas na cons
 1. Acesse o link do deploy na **Vercel** ou faça o clone deste repositório.
 2. Abra o arquivo `index.html` em qualquer navegador web moderno (Chrome, Edge, Firefox ou Safari).
 3. Preencha os campos na seção **Entrevista com o Declarante** (as dicas desaparecem automaticamente ao digitar).
-4. Clique em **"Gerar Carta com IA Automática"** e teste os botões de refinamento rápido (*Mais Poética*, *Mais Intensa*, *Mais Curta* e *Polir Gramática*).
+4. Clique em **"Gerar Carta"** e teste os botões de refinamento rápido (*Mais Poética*, *Mais Intensa*, *Mais Curta* e *Polir Gramática*).
 5. Escolha entre os 4 **Modelos do Papel**, edite qualquer trecho diretamente na folha se desejar e clique em **"Baixar PDF"**.
 
 ---
